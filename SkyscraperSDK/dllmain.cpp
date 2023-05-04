@@ -8,8 +8,8 @@ DWORD WINAPI MainThread(LPVOID lpReserved)
     bool hooked = false;
     while (!hooked)
     {
-        //Hooks::Init();
-        auto offset = Patterns::Scan("0F 57 C0 48 C7 44 24 ??"); // cGcTextChatManager::Say(cGcTextChatManager *this, const cTkFixedString<1023,char> *lsMessageBody, bool lbSystemMessage)
+        Hooks::Init();
+        auto offset = Patterns::Scan("48 8D 05 ? ? ? ? C6 44 24 ? ? F3 0F 10 05"); // cGcTextChatManager::Say(cGcTextChatManager *this, const cTkFixedString<1023,char> *lsMessageBody, bool lbSystemMessage)
         LOG(offset);
         hooked = true;
     }

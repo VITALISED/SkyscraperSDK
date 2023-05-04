@@ -1,11 +1,21 @@
 #pragma once
+#include <xmmintrin.h>
+#include <string>
 
-template<typename T>
-struct TkSTLAllocatorShim;/*<cTkUserIdBase<cTkFixedString<64, char> >, 1, -1>*/
+template <class Type>
+struct TkSTLAllocatorShim {
+	typedef std::string value_type;
+};
 
 template <unsigned int size, typename T>
 struct cTkFixedString
 {
+	//template<unsigned int size, typename T>
+	cTkFixedString(const char* buff)
+	{
+		strcpy_s(macBuffer, size, buff);
+	}
+
 	T macBuffer[size];
 };
 
@@ -14,6 +24,14 @@ struct cTkUserIdBase
 {
 	T mID;
 };
+
+template <unsigned int size>
+union TkID
+{
+	char mChars[size / 8];
+	unsigned __int64 mUInt64[size / 32];
+};
+
 
 // thanks IDA this really looks like a Vector4
 //union __m128
@@ -34,4 +52,27 @@ struct cTkVector4
 	__m128 mVal;
 };
 
-struct cTkColour : cTkVector4 { };
+struct cTkColour : cTkVector4 { 
+	cTkColour(__m128 _mVal)
+	{
+		mVal = _mVal;
+	}
+};
+
+template <typename T>
+struct cTkDynamicArray
+{
+	union cTkDynamicArrayPointer
+	{
+		T* mpaArray;
+		__int64 miOffset;
+	};
+
+	cTkDynamicArray::cTkDynamicArrayPointer mArray;
+};
+
+template <typename T, unsigned int size>
+struct cTkFixedArray
+{
+	T maArray[size];
+};

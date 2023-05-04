@@ -3,4 +3,4 @@
 
 #define LOG(a) std::cout << a << std::endl;
 #define VERSION 001
-#define SHOOK extern
+#define SHOOK __fastcall

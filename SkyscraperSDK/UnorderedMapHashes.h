@@ -1,7 +1,9 @@
 #pragma once
-#include "cTkTypes.h"
 
 namespace UnorderedMapHashes
 {
-	template<typename T> struct Hash;
+	template <class Type>
+	struct Hash {
+		typedef std::string value_type;
+	};
 }

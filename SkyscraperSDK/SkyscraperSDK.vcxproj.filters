@@ -70,7 +70,7 @@
       <Filter>Header Files\SDK\Stubs</Filter>
     </ClInclude>
     <ClInclude Include="UnorderedMapHashes.h">
-      <Filter>Header Files\SDK\Engine</Filter>
+      <Filter>Header Files\SDK\Network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
