@@ -143,21 +143,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="cGcTextChatInput.h" />
     <ClInclude Include="cGcTextChatManager.h" />
-    <ClInclude Include="memory.h" />
-    <ClInclude Include="Stubs.h" />
-    <ClInclude Include="TextChat.h" />
+    <ClInclude Include="CommandHandler.h" />
+    <ClInclude Include="cTkNGui.h" />
     <ClInclude Include="cTkTypes.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="hooks.h" />
-    <ClInclude Include="macros.h" />
     <ClInclude Include="patterns.h" />
-    <ClInclude Include="globals.h" />
+    <ClInclude Include="pch.h" />
     <ClInclude Include="UnorderedMapHashes.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="memory.cpp" />
-    <ClCompile Include="TextChat.cpp" />
+    <ClCompile Include="CommandHandler.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="hooks.cpp" />
     <ClCompile Include="patterns.cpp" />

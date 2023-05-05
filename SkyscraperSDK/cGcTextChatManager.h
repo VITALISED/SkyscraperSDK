@@ -1,9 +1,10 @@
 #pragma once
 
 #include "cTkTypes.h"
+#include "cGcCreature.h"
+
 #include "UnorderedMapHashes.h"
-#include <robin_hood.h>
-#include <array>
+#include "pch.h"
 
 enum eMissionMarkup /*: __int32*/
 {
@@ -26,14 +27,6 @@ enum eMissionMarkup /*: __int32*/
 	EMissionMarkup_None = 0x10,
 	EMissionMarkup_NumTypes = 0x11,
 	EMissionMarkup_Unspecified = 0xFFFFFFFF,
-};
-
-enum ePetTrait : __int32
-{
-	EPetTrait_Helpfulness = 0x0,
-	EPetTrait_Aggression = 0x1,
-	EPetTrait_Independence = 0x2,
-	EPetTrait_NumTypes = 0x3,
 };
 
 struct cGcStatusMessageMissionMarkup
@@ -82,7 +75,6 @@ struct cGcPetVocabularyTraitEntry
 	TkID<256> mPositive;
 	TkID<256> mNegative;
 };
-
 
 struct cGcPetVocabularyEntry
 {

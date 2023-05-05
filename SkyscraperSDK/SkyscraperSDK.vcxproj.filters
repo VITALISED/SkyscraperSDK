@@ -34,21 +34,15 @@
     <Filter Include="Header Files\SDK\Engine">
       <UniqueIdentifier>{cf04a27c-8f6d-480b-b5b5-770f96dc257e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\SDK\Stubs">
-      <UniqueIdentifier>{b2a42dd7-5033-45ce-93f1-a3b3b6291a40}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="macros.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="patterns.h">
       <Filter>Header Files\Memory</Filter>
     </ClInclude>
-    <ClInclude Include="TextChat.h">
+    <ClInclude Include="CommandHandler.h">
       <Filter>Header Files\Modules</Filter>
     </ClInclude>
     <ClInclude Include="cGcTextChatManager.h">
@@ -57,20 +51,20 @@
     <ClInclude Include="cTkTypes.h">
       <Filter>Header Files\SDK\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="globals.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="hooks.h">
       <Filter>Header Files\Memory</Filter>
     </ClInclude>
-    <ClInclude Include="memory.h">
-      <Filter>Header Files\Memory</Filter>
-    </ClInclude>
-    <ClInclude Include="Stubs.h">
-      <Filter>Header Files\SDK\Stubs</Filter>
+    <ClInclude Include="cGcTextChatInput.h">
+      <Filter>Header Files\SDK\Network</Filter>
     </ClInclude>
     <ClInclude Include="UnorderedMapHashes.h">
-      <Filter>Header Files\SDK\Network</Filter>
+      <Filter>Header Files\SDK\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="cTkNGui.h">
+      <Filter>Header Files\SDK\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -83,11 +77,8 @@
     <ClCompile Include="hooks.cpp">
       <Filter>Source Files\Memory</Filter>
     </ClCompile>
-    <ClCompile Include="TextChat.cpp">
+    <ClCompile Include="CommandHandler.cpp">
       <Filter>Source Files\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="memory.cpp">
-      <Filter>Source Files\Memory</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

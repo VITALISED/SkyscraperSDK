@@ -1,10 +1,6 @@
 #pragma once
 #include "patterns.h"
 #include "cGcTextChatManager.h"
-#include "macros.h"
-
-#include <Minhook.h>
-#pragma comment(lib,"libMinHook.x64.lib")
 
 namespace Hooks
 {

@@ -40,15 +40,13 @@ void SHOOK Hooks::SayHook(
 void Hooks::Init()
 {
 	uintptr_t base = (uintptr_t)GetModuleHandleA("xgog release_x64.exe");
-	uintptr_t target = Patterns::Scan("48 8D 05 ? ? ? ? C6 44 24 ? ? F3 0F 10 05");
+	uintptr_t target = (uintptr_t)Patterns::Scan("41 56 41 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 44 8B B5 ? ? ? ? 4D 8B E1");
 
-
-	cGcTextChatManager::Say SayFunc = cGcTextChatManager::Say(base + 0x94BA90);
-	LOG(SayFunc);
+	cGcTextChatManager::Say SayFunc = cGcTextChatManager::Say(target - 0x14);
 
 	MH_CreateHook(SayFunc, Hooks::SayHook, (void**) & originalSay);
 
 	if (MH_EnableHook(MH_ALL_HOOKS) != MH_OK) {
-		LOG("fully foil")
+		LOG("SDK had explosions while hooking (tragic)")
 	}
 }

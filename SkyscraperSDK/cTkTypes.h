@@ -1,6 +1,5 @@
 #pragma once
-#include <xmmintrin.h>
-#include <string>
+#include "pch.h"
 
 template <class Type>
 struct TkSTLAllocatorShim {
@@ -32,21 +31,7 @@ union TkID
 	unsigned __int64 mUInt64[size / 32];
 };
 
-
-// thanks IDA this really looks like a Vector4
-//union __m128
-//{
-//	float m128_f32[4];
-//	unsigned __int64 m128_u64[2];
-//	char m128_i8[16];
-//	__int16 m128_i16[8];
-//	int m128_i32[4];
-//	__int64 m128_i64[2];
-//	unsigned __int8 m128_u8[16];
-//	unsigned __int16 m128_u16[8];
-//	unsigned int m128_u32[4];
-//};
-
+// TODO: un-simd-ification would be cool
 struct cTkVector4
 {
 	__m128 mVal;
