@@ -31,6 +31,12 @@ union TkID
 	unsigned __int64 mUInt64[size / 32];
 };
 
+struct cTkVector2
+{
+	float mfX;
+	float mfY;
+};
+
 // TODO: un-simd-ification would be cool
 struct cTkVector4
 {
@@ -60,4 +66,10 @@ template <typename T, unsigned int size>
 struct cTkFixedArray
 {
 	T maArray[size];
+};
+
+struct cTkBBox2d
+{
+	cTkVector2 mMin;
+	cTkVector2 mMax;
 };

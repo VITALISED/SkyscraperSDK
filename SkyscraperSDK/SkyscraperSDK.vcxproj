@@ -143,9 +143,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="cGcCreature.h" />
     <ClInclude Include="cGcTextChatInput.h" />
     <ClInclude Include="cGcTextChatManager.h" />
-    <ClInclude Include="CommandHandler.h" />
+    <ClInclude Include="TextChatHandler.h" />
     <ClInclude Include="cTkNGui.h" />
     <ClInclude Include="cTkTypes.h" />
     <ClInclude Include="framework.h" />
@@ -155,7 +156,7 @@
     <ClInclude Include="UnorderedMapHashes.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CommandHandler.cpp" />
+    <ClCompile Include="TextChatHandler.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="hooks.cpp" />
     <ClCompile Include="patterns.cpp" />

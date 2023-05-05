@@ -42,7 +42,7 @@
     <ClInclude Include="patterns.h">
       <Filter>Header Files\Memory</Filter>
     </ClInclude>
-    <ClInclude Include="CommandHandler.h">
+    <ClInclude Include="TextChatHandler.h">
       <Filter>Header Files\Modules</Filter>
     </ClInclude>
     <ClInclude Include="cGcTextChatManager.h">
@@ -66,6 +66,9 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="cGcCreature.h">
+      <Filter>Header Files\SDK\Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -77,7 +80,7 @@
     <ClCompile Include="hooks.cpp">
       <Filter>Source Files\Memory</Filter>
     </ClCompile>
-    <ClCompile Include="CommandHandler.cpp">
+    <ClCompile Include="TextChatHandler.cpp">
       <Filter>Source Files\Modules</Filter>
     </ClCompile>
   </ItemGroup>
