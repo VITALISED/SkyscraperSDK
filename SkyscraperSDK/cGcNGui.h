@@ -14,6 +14,26 @@ enum eShape : __int8
 	EShape_NumTypes = 0x8,
 };
 
+enum eTkBlendMode : __int32
+{
+	EBlendMode_None = 0x0,
+	EBlendMode_Normal = 0x1,
+	EBlendMode_Additive = 0x2,
+	EBlendMode_Subtractive = 0x3,
+	EBlendMode_SourceRGBIsAlpha = 0x4,
+	EBlendMode_EngineBlend = 0x5,
+	EBlendMode_EngineAdd = 0x6,
+	EBlendMode_EngineMult = 0x7,
+	EBlendMode_EngineBlend_OutputOneMinusAlpha = 0x8,
+	EBlendMode_EngineBlend_OutputAlpha = 0x9,
+	EBlendMode_EngineAdd_OutputOneMinusAlpha = 0xA,
+	EBlendMode_InvSourceAlpha = 0xB,
+	EBlendMode_SourceAlpha = 0xC,
+	EBlendMode_RgbOnly = 0xD,
+	EBlendMode_AlphaOnly = 0xE,
+	EBlendMode_Num = 0xF,
+};
+
 enum eAnimate : __int8
 {
 	EAnimate_None = 0x0,
@@ -594,4 +614,162 @@ struct cTkNGuiEditor : cTkNGui
 	cTkColour* maSkinColoursBuffer;
 	float mfDragValueAccumulator;
 	int miFontID;
+};
+
+struct ITkNGuiDraggable
+{
+	ITkNGuiDraggable_vtbl* __vftable /*VFT*/;
+};
+
+struct cGcNGuiLayer : cGcNGuiElement
+{
+	std::vector<cGcNGuiElement*, TkSTLAllocatorShim<cGcNGuiElement*> > mapElements;
+	std::vector<cGcNGuiLayer*, TkSTLAllocatorShim<cGcNGuiLayer*> > mapLayerElements;
+	std::vector<cTkVector2, TkSTLAllocatorShim<cTkVector2> > maPinnedPositions;
+	__declspec(align(16)) cTkNGuiGraphicStyleData mPreviousGraphicsStyle;
+	void(__fastcall* mpRenderFunction)(void*);
+	void* mpRenderFunctionData;
+	cGcNGuiLayerData* mpLayerData;
+	cTkLinearHashTable<cTkHashedNGuiElement, cGcNGuiElement*, -1, 0, cTkHashedNGuiElement>* mpElementHashTable;
+	unsigned __int64 muUniqueID;
+	bool mbExpanded;
+};
+
+struct cGcNGuiElement : ITkNGuiDraggable
+{
+	enum eLayoutChangeEvent : __int8
+	{
+		ELayoutChange_Nothing = 0x0,
+		ELayoutChange_PositionMode = 0x1,
+		ELayoutChange_WidthMode = 0x2,
+		ELayoutChange_HeightMode = 0x3,
+		ELayoutChange_ConstrainMode = 0x4,
+		ELayoutChange_Size = 0x5,
+		ELayoutChange_Width = 0x6,
+		ELayoutChange_Height = 0x7,
+		ELayoutChange_Value = 0x8,
+		ELayoutChange_ColourPreset = 0x9,
+	};
+
+	cTkBBox2d mContentBBox;
+	cTkVector2 mvParallaxOffset;
+	cTkNGuiTypeUndoable<cGcNGuiLayoutData>* mpUndoMoveEvent;
+	cTkNGuiTypeUndoable<cGcNGuiLayoutData>* mpUndoResizeEvent;
+	cTkNGuiTypeUndoable<cGcNGuiLayoutData>* mpUndoLayoutEvent;
+	cGcNGuiLayer* mpParent;
+	cGcNGuiElementData* mpElementData;
+	eNGuiInputType meInputThisFrame;
+	cGcNGuiElement::eLayoutChangeEvent meLayoutChangeEvent;
+	eNGuiAnimationEvent meRequestAnim;
+	cGcNGuiElement::sGcNGuiElementAnimSettings mAnim;
+	bool mbSelectedToEdit;
+
+	struct sGcNGuiElementAnimSettings
+	{
+		__int8 mbRequestAnimActivate : 1;
+		__int8 mbRequestAnimReset : 1;
+	};
+};
+
+struct cTkNGuiInput
+{
+	bool mbControlHeld;
+	bool mbShiftHeld;
+	bool mbAltHeld;
+	float mfRightStickX;
+	float mfRightStickY;
+	float mfCursorX;
+	float mfCursorY;
+	float mfCursorDeltaX;
+	float mfCursorDeltaY;
+	float mfCursorSpeedModifierX;
+	float mfCursorSpeedModifierY;
+	float mfMousePosX;
+	float mfMousePosY;
+	float mfMouseScroll;
+	eNGuiInputButtonState meMouseButtonState;
+	eNGuiInputButtonState meMouse2ButtonState;
+	eNGuiInputButtonState meRightThumbState;
+	eNGuiInputButtonState meTransferButtonState;
+	eNGuiInputButtonState meUploadButtonState;
+	eNGuiInputButtonState meDiscoveryUploadButtonState;
+	bool mbCursorIsMouse;
+	bool mbPadOnly;
+	std::vector<std::pair<cTkNGuiElementID, enum eNGuiInputType>, TkSTLAllocatorShim<std::pair<cTkNGuiElementID, enum eNGuiInputType>, 8, -1> > maElementsPressed;
+	std::vector<std::pair<cTkNGuiElementID, enum eNGuiInputType>, TkSTLAllocatorShim<std::pair<cTkNGuiElementID, enum eNGuiInputType>, 8, -1> > maElementsPressed2;
+	int KeyMap[19];
+	bool KeyCtrl;
+	bool KeyShift;
+	bool KeyAlt;
+	bool maKeysDown[512];
+	char maInputCharacters[17];
+	bool mbPadActive;
+	ITkNGuiDraggable* mpDragObject;
+};
+
+struct cTk2dLayer : cTk2dObject
+{
+	cTkBitArray<unsigned __int64, 512> mBitArray;
+	eTkBlendMode meBlendMode;
+	cTk2dObject* mpFirstChild;
+	bool mbIsVisible;
+	bool mbDynamicSize;
+	cTkVector2 mScale;
+	float mfAngle;
+};
+
+struct cTk3dLayer : cTk2dLayer
+{
+	enum eDepthTest : __int32
+	{
+		EDepthTest_None = 0x0,
+		EDepthTest_Normal = 0x1,
+		EDepthTest_Inverse = 0x2,
+	};
+
+	cTkVector3 mWorldPosition;
+	cTkVector4 mScreenPosition;
+	cTkVector4 mScreenPositionLeft;
+	cTkVector4 mScreenPositionRight;
+	float mfScreenDepth;
+	float mfDefaultDistToCamera;
+	float mfMinScale;
+	float mfMaxScale;
+	cTk3dLayer::eDepthTest meTestZ;
+	bool mbEnable3d;
+	bool mbScale3d;
+};
+
+struct __declspec(align(16)) cTk2dImage : cTk2dObject
+{
+	cTkVector2 maUVs[4];
+	cTkTexture* mpTexture;
+	cTkDynamicTexture* mpDynamicTexture;
+	float mfTextureMipLevel;
+	bool mbVisible;
+	bool mbTiledUV;
+	bool mbIsRenderTarget;
+};
+
+struct cGcNGui
+{
+	cGcNGuiLayer mRoot;
+	cTkNGuiInput mInput;
+	bool mbUseInput;
+	float mfPixelRatio;
+	bool mbFullscreen;
+	cTkVector2 mCustomSize;
+	bool mbHasCustomSize;
+	bool mbIsInWorld;
+	cTk3dLayer mTk3dLayer;
+	cTk2dImage mTk2dImage;
+};
+
+struct ScrollBarState
+{
+	int miNumEntries;
+	int miCurrentStartIndex;
+	int miEntriesPerPage;
+	cTkVector2 mfLastSeenPos;
+	cTkVector2 mfLastSeenSize;
 };

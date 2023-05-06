@@ -1,6 +1,8 @@
 #pragma once
 #include "patterns.h"
 #include "cGcTextChatManager.h"
+#include "cGcTextChatInput.h"
+#include "TextChatHandler.h"
 
 namespace Hooks
 {

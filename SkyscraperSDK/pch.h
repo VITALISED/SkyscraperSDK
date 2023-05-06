@@ -7,6 +7,10 @@
 #include <xmmintrin.h>
 #include <string>
 #include <vector>
+#include <memory>
+#include <atomic>
+#include <unordered_map>
+#include <map>
 
 #include <Minhook.h>
 #pragma comment(lib,"libMinHook.x64.lib")

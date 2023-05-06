@@ -1,7 +1,7 @@
 #pragma once
 #include "pch.h"
 
-#include "cTkNGui.h"
+#include "cGcNGui.h"
 #include "cTkTypes.h"
 
 struct __declspec(align(4)) StbUndoRecord
@@ -42,6 +42,8 @@ struct STB_TexteditState
 
 class cGcTextChatInput
 {
+public:
+
 	cTkNGuiTextEditState mEditText;
 	cTkFixedString<1023, char> msText;
 	cTkFixedString<1023, char> msInputTextDisplayString;
@@ -51,6 +53,9 @@ class cGcTextChatInput
 	byte meCurrentCommand[1];
 	byte mePendingCommand[1];
 
+	typedef void(__fastcall* cTkNGuiTextEditState)(cTkNGuiTextEditState* _this);
+	typedef void(__fastcall* ParseTextForCommand)(cGcTextChatInput* _this, const cTkFixedString<1023, char>* lMessageText);
+
 	const struct SCommandLookup
 	{
 		const char* mpcCommandName;
@@ -58,8 +63,4 @@ class cGcTextChatInput
 	};
 
 	const cGcTextChatInput::SCommandLookup* mpLookupTable;
-
-	typedef void(__fastcall *cTkNGuiTextEditState)(cTkNGuiTextEditState* _this);
-
-
 };

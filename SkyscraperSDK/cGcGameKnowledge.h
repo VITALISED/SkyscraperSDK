@@ -1,0 +1,7 @@
+#pragma once
+
+struct cGcGameKnowledge
+{
+	cGcGameKnowledge::Data* mpData;
+	cTkStackVector<IKnowledgeEventHandler*, 2, -1> mCachedHandlers;
+};

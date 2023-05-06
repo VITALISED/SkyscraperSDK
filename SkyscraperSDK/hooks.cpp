@@ -19,8 +19,7 @@ void SHOOK Hooks::SayHook(
 	LOG("Wires");
 	LOG(lsMessageBody->macBuffer);
 
-	uintptr_t base = (uintptr_t)GetModuleHandleA("xgog release_x64.exe");
-
+	uintptr_t base = (uintptr_t)GetModuleHandleA(NULL);
 	auto ptrthing = reinterpret_cast<cGcTextChatManager::PostLocalMessage>(base + 0x94A2B0);
 
 
@@ -37,14 +36,30 @@ void SHOOK Hooks::SayHook(
 	return;
 }
 
+void SHOOK wire(cGcTextChatInput* _this, const cTkFixedString<1023, char>* lMessageText)
+{
+	uintptr_t base = (uintptr_t)GetModuleHandleA(NULL);
+	auto ptrthing = reinterpret_cast<cGcTextChatManager::PostLocalMessage>(base + 0x94A2B0);
+
+	if (lMessageText->macBuffer == "/wire")
+	{
+		ptrthing(_this, &thing, "Explorer", (cTkColour)newCol1, 0, lfDisplayDuration)
+	}
+}
+
 void Hooks::Init()
 {
-	uintptr_t base = (uintptr_t)GetModuleHandleA("xgog release_x64.exe");
+	uintptr_t base = (uintptr_t)GetModuleHandleA(NULL);
 	uintptr_t target = (uintptr_t)Patterns::Scan("41 56 41 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 44 8B B5 ? ? ? ? 4D 8B E1");
 
-	cGcTextChatManager::Say SayFunc = cGcTextChatManager::Say(target - 0x14);
+	uintptr_t foil = 0x949870;
 
-	MH_CreateHook(SayFunc, Hooks::SayHook, (void**) & originalSay);
+	cGcTextChatManager::Say SayFunc = cGcTextChatManager::Say(target - 0x14);
+	cGcTextChatInput::ParseTextForCommand ParseCmdFunc = cGcTextChatInput::ParseTextForCommand(base + foil);
+
+	MH_CreateHook(ParseCmdFunc, wire, NULL);
+
+	//MH_CreateHook(SayFunc, Hooks::SayHook, (void**) & originalSay);
 
 	if (MH_EnableHook(MH_ALL_HOOKS) != MH_OK) {
 		LOG("SDK had explosions while hooking (tragic)")

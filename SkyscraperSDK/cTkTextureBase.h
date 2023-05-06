@@ -1,0 +1,55 @@
+#pragma once
+
+struct cTkTextureBase
+{
+	enum cTkTexeTexFormat : __int8
+	{
+		Unknown = 0x0,
+		RGB8 = 0x1,
+		RGBX8 = 0x2,
+		RGBA8 = 0x3,
+		BGRX8 = 0x4,
+		BGRA8 = 0x5,
+		BGR8 = 0x6,
+		RGBA16 = 0x7,
+		RGBA16F = 0x8,
+		RGBA32F = 0x9,
+		RGBA32UI = 0xA,
+		RED8 = 0xB,
+		RED16 = 0xC,
+		RED32F = 0xD,
+		RED16F = 0xE,
+		RG8 = 0xF,
+		RG16 = 0x10,
+		RG16F = 0x11,
+		RGB10A2 = 0x12,
+		R11FG11FB10F = 0x13,
+		R32FG32F = 0x14,
+		RG32UI = 0x15,
+		DEPTH = 0x16,
+		DEPTH16 = 0x17,
+		DEPTH24 = 0x18,
+		sRGBA8 = 0x19,
+		LinearRGBA = 0x1A,
+		RED32I = 0x1B,
+		RED32UI = 0x1C,
+		RGBA16UI = 0x1D,
+		RED8I = 0x1E,
+		RED8UI = 0x1F,
+		RED16_Snorm = 0x20,
+		BC4_Unorm = 0x21,
+		BC5_Snorm = 0x22,
+		BC5_Unorm = 0x23,
+		BC7 = 0x24,
+		DXT1 = 0x25,
+		DXT3 = 0x26,
+		DXT5 = 0x27,
+		DXT5_NS = 0x28,
+		ASTC4x4 = 0x29,
+		ASTC5x5 = 0x2A,
+		ASTC6x6 = 0x2B,
+		ASTC8x8 = 0x2C,
+	};
+
+};
+
