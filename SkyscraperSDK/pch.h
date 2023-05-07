@@ -11,6 +11,9 @@
 #include <atomic>
 #include <unordered_map>
 #include <map>
+#include <forward_list>
+#include <nanoflann.h>
+#include <deque>
 
 #include <Minhook.h>
 #pragma comment(lib,"libMinHook.x64.lib")

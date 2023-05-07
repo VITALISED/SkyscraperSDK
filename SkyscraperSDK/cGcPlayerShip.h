@@ -5,6 +5,26 @@
 #include "cTkModelResourceRenderer.h"
 #include "Raycast.h"
 
+enum eShipClass : __int32
+{
+	EShipClass_Freighter = 0x0,
+	EShipClass_Dropship = 0x1,
+	EShipClass_Fighter = 0x2,
+	EShipClass_Scientific = 0x3,
+	EShipClass_Shuttle = 0x4,
+	EShipClass_PlayerFreighter = 0x5,
+	EShipClass_Royal = 0x6,
+	EShipClass_Alien = 0x7,
+	EShipClass_Sail = 0x8,
+	// sentinel ship for 4.20 is probably EShipClass_Salvage
+	EShipClass_NumTypes = 0x9,
+};
+
+struct cGcSpaceshipClasses
+{
+	eShipClass meShipClass;
+};
+
 struct __declspec(align(4)) cGcPlayerShipOwnership
 {
 	struct sGcShipData

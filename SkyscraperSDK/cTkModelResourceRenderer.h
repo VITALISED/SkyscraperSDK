@@ -2,6 +2,52 @@
 #include "cTkTypes.h"
 #include "Procedural.h"
 
+enum eModelViews : __int32
+{
+	EModelViews_Suit = 0x0,
+	EModelViews_Weapon = 0x1,
+	EModelViews_Ship = 0x2,
+	EModelViews_Vehicle = 0x3,
+	EModelViews_DiscoveryMain = 0x4,
+	EModelViews_DiscoveryThumbnail = 0x5,
+	EModelViews_WonderThumbnail = 0x6,
+	EModelViews_WonderThumbnailCreatureSmall = 0x7,
+	EModelViews_WonderThumbnailCreatureMed = 0x8,
+	EModelViews_WonderThumbnailCreatureLarge = 0x9,
+	EModelViews_WonderThumbnailFloraSmall = 0xA,
+	EModelViews_WonderThumbnailFloraLarge = 0xB,
+	EModelViews_WonderThumbnailMineralSmall = 0xC,
+	EModelViews_WonderThumbnailMineralLarge = 0xD,
+	EModelViews_ToolboxMain = 0xE,
+	EModelViews_ToolboxThumbnail = 0xF,
+	EModelViews_TradeSuit = 0x10,
+	EModelViews_TradeShip = 0x11,
+	EModelViews_TradeCompareShips = 0x12,
+	EModelViews_TradeCompareWeapons = 0x13,
+	EModelViews_HUDThumbnail = 0x14,
+	EModelViews_Interaction = 0x15,
+	EModelViews_Freighter = 0x16,
+	EModelViews_TradeFreighter = 0x17,
+	EModelViews_TradeChest = 0x18,
+	EModelViews_TradeCapsule = 0x19,
+	EModelViews_TradeFrigate = 0x1A,
+	EModelViews_TerrainBall = 0x1B,
+	EModelViews_FreighterChest = 0x1C,
+	EModelViews_Submarine = 0x1D,
+	EModelViews_TradeCooker = 0x1E,
+	EModelViews_SuitRefiner = 0x1F,
+	EModelViews_FreighterRepair = 0x20,
+	EModelViews_DiscoveryPlanetaryMapping = 0x21,
+	EModelViews_Mech = 0x22,
+	EModelViews_PetThumbnail = 0x23,
+	EModelViews_PetThumbnailUI = 0x24,
+	EModelViews_PetLarge = 0x25,
+	EModelViews_SquadronPilotLarge = 0x26,
+	EModelViews_SquadronPilotThumbnail = 0x27,
+	EModelViews_SquadronSpaceshipThumbnail = 0x28,
+	EModelViews_NumTypes = 0x29,
+};
+
 enum EModelResourceRendererViewMode : __int32
 {
 	EModelResourceRendererViewMode_RotateX = 0x1,

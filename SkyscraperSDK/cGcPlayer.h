@@ -4,6 +4,12 @@
 #include "Procedural.h"
 #include "Vehicle.h"
 #include "UniverseAddressData.h"
+#include "Multitool.h"
+#include "Base.h"
+#include "PhotoMode.h"
+#include "cGcSeason.h"
+#include "Story.h"
+#include "Settlement.h"
 
 enum eHand
 {
@@ -145,25 +151,25 @@ struct cGcPlayerState
 	int miRestoreEnergy;
 	cGcExactResource mWeaponResource;
 	cTkFixedArray<cGcInventoryStore, 28> mInventories;
-	std::vector<cGcInventoryStore, TkSTLAllocatorShim<cGcInventoryStore, 8, -1> > mShelvedInventories;
+	std::vector<cGcInventoryStore, TkSTLAllocatorShim<cGcInventoryStore> > mShelvedInventories;
 	cTkFixedArray<cGcInventoryStore, 7> mVehicleInventories;
 	cTkFixedArray<cGcInventoryStore, 7> mVehicleTechInventories;
 	cTkFixedArray<cGcVehicleLocation, 7> mVehicleLocations;
 	eVehicleType mePrimaryVehicle;
 	cTkFixedArray<cGcInventoryStore, 12> mShipInventories;
-	std::vector<cGcInventoryStore, TkSTLAllocatorShim<cGcInventoryStore, 8, -1> > mShelvedShipInventories;
+	std::vector<cGcInventoryStore, TkSTLAllocatorShim<cGcInventoryStore> > mShelvedShipInventories;
 	cTkFixedArray<cGcInventoryStore, 12> mShipInventoriesCargo;
 	cTkFixedArray<cGcInventoryStore, 12> mShipInventoriesTechOnly;
 	cTkFixedArray<cGcResourceElement, 12> mShipResources;
 	int miPrimaryShip;
-	std::vector<cGcRepairTechData, TkSTLAllocatorShim<cGcRepairTechData, 8, -1> > mRepairTechBuffer;
-	std::vector<cTkVector3, TkSTLAllocatorShim<cTkVector3, 16, -1> > maSurveyedEventPositions;
+	std::vector<cGcRepairTechData, TkSTLAllocatorShim<cGcRepairTechData> > mRepairTechBuffer;
+	std::vector<cTkVector3, TkSTLAllocatorShim<cTkVector3> > maSurveyedEventPositions;
 	cGcPlayerLogBook mPlayerLog;
-	robin_hood::detail::Table<1, 80, TkID<128>, void, robin_hood::hash<TkID<128>, void>, std::equal_to<TkID<128> >, -1> mSeenBaseBuildingObjects;
-	std::vector<TkID<128>, TkSTLAllocatorShim<TkID<128>, 8, -1> > mKnownTechnologies;
-	std::vector<TkID<128>, TkSTLAllocatorShim<TkID<128>, 8, -1> > mKnownProducts;
-	std::vector<TkID<256>, TkSTLAllocatorShim<TkID<256>, 8, -1> > mKnownRefinerRecipes;
-	std::vector<cGcWordGroupKnowledge, TkSTLAllocatorShim<cGcWordGroupKnowledge, 8, -1> > mKnownWordGroups;
+	robin_hood::detail::Table<1, 80, TkID<128>, void, robin_hood::hash<TkID<128>, void>, std::equal_to<TkID<128> >> mSeenBaseBuildingObjects;
+	std::vector<TkID<128>, TkSTLAllocatorShim<TkID<128>> > mKnownTechnologies;
+	std::vector<TkID<128>, TkSTLAllocatorShim<TkID<128>> > mKnownProducts;
+	std::vector<TkID<256>, TkSTLAllocatorShim<TkID<256>> > mKnownRefinerRecipes;
+	std::vector<cGcWordGroupKnowledge, TkSTLAllocatorShim<cGcWordGroupKnowledge> > mKnownWordGroups;
 	unsigned __int64 mu64TotalPlayTime;
 	unsigned __int64 mu64TimeAlive;
 	float mfTimeAccumulator;
@@ -205,7 +211,7 @@ struct cGcPlayerState
 	bool mbWarpFromFreighterMegaWarp;
 	bool mbUseSmallerBlackholeJumps;
 	bool mbIsDataNew;
-	std::vector<cGcSavedEntitlement, TkSTLAllocatorShim<cGcSavedEntitlement, 1, -1> > maUsedEntitlements;
+	std::vector<cGcSavedEntitlement, TkSTLAllocatorShim<cGcSavedEntitlement> > maUsedEntitlements;
 	unsigned __int64 mu64LastSpaceBattleTime;
 	int miLastSpaceBattleWarps;
 	unsigned __int64 mu64LastMiniStationTime;
@@ -213,7 +219,7 @@ struct cGcPlayerState
 	unsigned __int64 mMiniStationLocation;
 	cTkVector3 mAnomalyPositionOverride;
 	cGcPhotoModeSettings mPhotoModeSettings;
-	std::vector<cGcTeleportEndpoint, TkSTLAllocatorShim<cGcTeleportEndpoint, 16, -1> > maTeleportEndpoints;
+	std::vector<cGcTeleportEndpoint, TkSTLAllocatorShim<cGcTeleportEndpoint> > maTeleportEndpoints;
 	cGcPlayerNPCWorkers mPlayerNPCWorkers;
 	cGcInteractionData mHoloExplorerInteraction;
 	cGcInteractionData mHoloScepticInteraction;
@@ -224,7 +230,7 @@ struct cGcPlayerState
 	cTkFixedString<32, char> mCustomWeaponName;
 	cTkFixedString<32, char> maCustomShipNames[12];
 	cTkFixedString<32, char> maCustomVehicleNames[7];
-	std::vector<cGcPortalSaveData, TkSTLAllocatorShim<cGcPortalSaveData, 8, -1> > maLastPortal;
+	std::vector<cGcPortalSaveData, TkSTLAllocatorShim<cGcPortalSaveData> > maLastPortal;
 	cGcPortalSaveData mLastPortal;
 	int miKnownPortalRunes;
 	bool mbOnOtherSideOfPortal;
@@ -276,7 +282,7 @@ struct cGcPlayerState
 
 struct sPlayerTitleStatWatcher : IStatWatcher
 {
-	std::unordered_map<TkID<128>, cGcPlayerTitle const*, TkIDUnorderedMap::Hash128, std::equal_to<TkID<128> >, TkSTLAllocatorShim<std::pair<TkID<128> const, cGcPlayerTitle const*>, 8, -1> > mStatIdMap;
+	std::unordered_map<TkID<128>, cGcPlayerTitle const*, TkIDUnorderedMap::Hash128, std::equal_to<TkID<128> >, TkSTLAllocatorShim<std::pair<TkID<128> const, cGcPlayerTitle const*>> > mStatIdMap;
 };
 
 struct cGcPlayerLogBook
@@ -304,4 +310,30 @@ struct cGcPlayerBanner
 	unsigned __int8 miBackgroundColourIndex;
 	eInventoryClass meShipClass;
 	TkID<128> mTitleId;
+};
+
+
+struct cGcPlayerEmoteProp
+{
+	enum eState : __int32
+	{
+		Inactive = 0x0,
+		LoadingResource = 0x1,
+		Visible = 0x2,
+	};
+};
+
+struct cGcGraveManager
+{
+	cGcGraveManager::Data* mpData;
+};
+
+struct cGcMsgBeaconManager
+{
+	cGcMsgBeaconManager::Data* mpData;
+};
+
+struct cGcHand
+{
+	eHand meHand;
 };

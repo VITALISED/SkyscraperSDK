@@ -319,3 +319,61 @@ struct cTkClassPoolHandle
 	int miArrayIndex;
 	int miUniqueID;
 };
+
+template <int unk>
+struct AutoPooled {};
+
+template <int unk>
+struct cTkVector3KD/*<-1>*/
+{
+	cTkVector3KD<unk>_vtbl* __vftable /*VFT*/;
+	__declspec(align(16)) std::vector<cTkVector3KD<unk>::Float3, TkSTLAllocatorShim<cTkVector3KD<unk>::Float3> > mvPoints;
+	cTkVector3 mBBoxMin;
+	cTkVector3 mBBoxMax;
+	bool mbBBoxValid;
+};
+
+template <typename T, int unk>
+struct __declspec(align(16)) cTkVector3MetaKD/*<int, -1>*/ : cTkVector3KD<unk>
+{
+	std::vector<T, TkSTLAllocatorShim<T> > mvMetadata;
+};
+
+template <class T>
+struct __declspec(align(8)) cTkLockFreeQueue/*<cGcSimulation::DestructionPair>*/
+{
+	std::atomic<int> miQueueMarkers;
+	T* mpEntries;
+	std::atomic<int>* maEntryValid;
+	int miMaxNumEntries;
+};
+
+template <class T, int size>
+struct __declspec(align(8)) cTkInplaceLockFreeQueue/*<cGcSimulation::DestructionPair, 1024>*/ : cTkLockFreeQueue<T>
+{
+	T maEntryBuffer[size + 1];
+	std::atomic<int> maEntryValidBuffer[size + 1];
+};
+
+struct cTkRigidBodyPtr
+{
+	int miBodyIndex;
+	__int64 miUniqueID;
+};
+
+template <class T, int size>
+struct cTkClassPool/*<cGcSimpleScanEffectPool<3>::Data, 3>*/
+{
+	T::Data maPool[size];
+	int maiUniqueIds[size];
+	int maiRoster[size];
+	int miRosterPartition;
+	int miUniqueIDGenerator;
+};
+
+template <int wire>
+struct __declspec(align(8)) TkIterationState/*<1>*/
+{
+	std::array<unsigned __int64, wire> muIndices;
+	std::array<bool, wire> mbInnerStates;
+};

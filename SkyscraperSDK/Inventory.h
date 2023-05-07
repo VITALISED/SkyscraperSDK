@@ -1,6 +1,6 @@
 #pragma once
 #include "cTkTypes.h"
-#include "Naming.h"
+#include "Procedural.h"
 #include "UnorderedMapHashes.h"
 
 enum eInventoryStackSizeGroup : __int32
@@ -34,6 +34,26 @@ struct cGcInventoryClass
 	eInventoryClass meInventoryClass;
 };
 
+struct cGcInventoryStackSizeGroup
+{
+	eInventoryStackSizeGroup meInventoryStackSizeGroup;
+};
+
+struct cGcInventoryContainer
+{
+	cTkDynamicArray<cGcInventoryElement> maSlots;
+	cTkDynamicArray<cGcInventoryIndex> maValidSlotIndices;
+	cGcInventoryClass mClass;
+	cGcInventoryStackSizeGroup mStackSizeGroup;
+	cTkDynamicArray<cGcInventoryBaseStatEntry> maBaseStatValues;
+	cTkDynamicArray<cGcInventorySpecialSlot> maSpecialSlots;
+	int miWidth;
+	int miHeight;
+	bool mbIsCool;
+	cTkFixedString<256, char> macName;
+	int miVersion;
+};
+
 struct cGcInventoryStore
 {
 	cTkBitArray<unsigned __int64, 16> mxValidSlots[16];
@@ -51,4 +71,13 @@ struct cGcInventoryStore
 	cGcInventoryClass mClass;
 	cTkFixedString<256, char> mInventoryName;
 	std::unordered_map<TkID<256>, int, TkIDUnorderedMap::Hash256, std::equal_to<TkID<256> >, TkSTLAllocatorShim<std::pair<TkID<256> const, int>> > mTechGroupCounts;
+};
+
+struct cGcInventoryStoreBalance
+{
+	int miPlayerPersonalInventoryTechWidth;
+	int miPlayerPersonalInventoryTechHeight;
+	int miPlayerPersonalInventoryCargoWidth;
+	int miPlayerPersonalInventoryCargoHeight;
+	float mfDeconstructRefundPercentage;
 };

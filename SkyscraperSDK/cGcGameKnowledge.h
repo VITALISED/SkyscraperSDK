@@ -1,4 +1,5 @@
 #pragma once
+#include "cGcAsyncLoadOps.h"
 
 struct cGcGameKnowledge
 {

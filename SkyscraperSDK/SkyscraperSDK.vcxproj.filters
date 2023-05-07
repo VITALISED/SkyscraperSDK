@@ -34,6 +34,18 @@
     <Filter Include="Header Files\SDK\Engine">
       <UniqueIdentifier>{cf04a27c-8f6d-480b-b5b5-770f96dc257e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\SDK\Reality">
+      <UniqueIdentifier>{2bd66fc9-a5fb-4010-8b02-9f378c59f20a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SDK\NGui">
+      <UniqueIdentifier>{c94af38c-0949-4c75-81fe-c00d0f58ba03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SDK\Interfaces">
+      <UniqueIdentifier>{00daefa1-4f9d-42b2-ae46-e55a6027c1c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SDK\VFX">
+      <UniqueIdentifier>{50b3ee44-d65f-411a-8641-ce695e1d7f4f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -60,14 +72,209 @@
     <ClInclude Include="UnorderedMapHashes.h">
       <Filter>Header Files\SDK\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="cTkNGui.h">
-      <Filter>Header Files\SDK\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cGcCreature.h">
+    <ClInclude Include="cGcAsyncLoadOps.h">
       <Filter>Header Files\SDK\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcApplication.h">
+      <Filter>Header Files\SDK\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcApplicationTitleScreen.h">
+      <Filter>Header Files\SDK\NGui</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcApplicationUGCBaseViewer.h">
+      <Filter>Header Files\SDK\NGui</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcApplicationGameModeSelector.h">
+      <Filter>Header Files\SDK\NGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Alien.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio.h">
+      <Filter>Header Files\SDK\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Base.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcFirstBootContext.h">
+      <Filter>Header Files\SDK\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcGameKnowledge.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcNetwork.h">
+      <Filter>Header Files\SDK\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcNGui.h">
+      <Filter>Header Files\SDK\NGui</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcPlayer.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcPlayerShip.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcAtlastBrokerAuth.h">
+      <Filter>Header Files\SDK\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcRealityManager.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcSeason.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="cTkModelResourceRenderer.h">
+      <Filter>Header Files\SDK\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="cTkStoragePersistent.h">
+      <Filter>Header Files\SDK\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="cTkTextureBase.h">
+      <Filter>Header Files\SDK\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Customisation.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="Difficulty.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="Discovery.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="Freighter.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="Frigate.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="INetworkPlayerEventsHandler.h">
+      <Filter>Header Files\SDK\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="IStatWatcher.h">
+      <Filter>Header Files\SDK\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Multitool.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="PhotoMode.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="Procedural.h">
+      <Filter>Header Files\SDK\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Planet.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="Raycast.h">
+      <Filter>Header Files\SDK\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Settlement.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="Squadron.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="Story.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="UniverseAddressData.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="Vehicle.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="IDiscoveryManagerEventHandler.h">
+      <Filter>Header Files\SDK\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcCreature.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcStatsManager.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="IStatVariantWatcher.h">
+      <Filter>Header Files\SDK\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcTelemetryManager.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcUserSettings.h">
+      <Filter>Header Files\SDK\NGui</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcUserSeenItemsState.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="Mission.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcEntitlementManager.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcTerrainEditBlockBuffer.h">
+      <Filter>Header Files\SDK\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Trade.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcRichPresence.h">
+      <Filter>Header Files\SDK\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcCloudSaveManager.h">
+      <Filter>Header Files\SDK\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcGameState.h">
+      <Filter>Header Files\SDK\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcSimulation.h">
+      <Filter>Header Files\SDK\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Marker.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcFrontendPage.h">
+      <Filter>Header Files\SDK\NGui</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcScanner.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcBinoculars.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcRegionHotspots.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcSceneManager.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="Fade.h">
+      <Filter>Header Files\SDK\VFX</Filter>
+    </ClInclude>
+    <ClInclude Include="Explosion.h">
+      <Filter>Header Files\SDK\VFX</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcEffectList.h">
+      <Filter>Header Files\SDK\VFX</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcParticleManager.h">
+      <Filter>Header Files\SDK\VFX</Filter>
+    </ClInclude>
+    <ClInclude Include="Fog.h">
+      <Filter>Header Files\SDK\VFX</Filter>
+    </ClInclude>
+    <ClInclude Include="LightShaft.h">
+      <Filter>Header Files\SDK\VFX</Filter>
+    </ClInclude>
+    <ClInclude Include="cTkTimeManager.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcSky.h">
+      <Filter>Header Files\SDK\Reality</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +289,9 @@
     </ClCompile>
     <ClCompile Include="TextChatHandler.cpp">
       <Filter>Source Files\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="cGcBlockedUser.h">
+      <Filter>Header Files\SDK\Network</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

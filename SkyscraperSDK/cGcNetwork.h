@@ -5,6 +5,19 @@
 struct cGcNetworkConstants
 {
 	typedef cGcAtlasBrokerAuth::State::Constants TransmissionChannels;
+
+	enum OnlinePlatformType : __int8
+	{
+		Generic = 0x0,
+		GOG = 0x1,
+		PlayStation = 0x2,
+		Steam = 0x3,
+		XboxLive = 0x4,
+		GenericKBM = 0x5,
+		Nintendo = 0x6,
+		NumOnlinePlatformTypes = 0x7,
+	};
+
 };
 
 const struct cGcNetworkMessage
@@ -51,3 +64,15 @@ struct __declspec(align(8)) cGcNetworkFreighterOwnershipSyncMessage : cGcNetwork
 	bool mbWarpingWithPlayerAboard;
 	bool mbIsDismissed;
 };
+
+struct __declspec(align(8)) cGcNetworkBufferHash
+{
+	cGcNetworkBufferHash_vtbl* __vftable /*VFT*/;
+	const int kiChunkSize;
+	int miChunkHashOffset;
+	std::vector<sHashValue, TkSTLAllocatorShim<sHashValue> > maChunkHashValues;
+	unsigned __int64 mu64Timestamp;
+	bool mbInitialised;
+};
+
+struct cGcNetworkSynchronisedBuffer : cGcNetworkBufferHash {};

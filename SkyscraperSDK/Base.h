@@ -2,6 +2,14 @@
 #include "Procedural.h"
 #include "UniverseAddressData.h"
 
+enum eBaseSharingMode : __int32
+{
+	EBaseSharingMode_Undecided = 0x0,
+	EBaseSharingMode_On = 0x1,
+	EBaseSharingMode_Off = 0x2,
+	EBaseSharingMode_NumTypes = 0x3,
+};
+
 struct BaseIndex
 {
 	unsigned __int16 mValue;
@@ -45,4 +53,19 @@ struct __declspec(align(16)) cGcTeleportEndpoint
 	cTkFixedString<64, char> macName;
 	bool mbCalcWarpOffset;
 	bool mbIsFeatured;
+};
+
+struct cGcBaseBuildingPersistentBuffer : cGcNetworkSynchronisedBuffer
+{
+	std::vector<cGcBaseBuildingPersistentBuffer::BaseBuildingPersistentData, TkSTLAllocatorShim<cGcBaseBuildingPersistentBuffer::BaseBuildingPersistentData> > maBaseBuildingObjects;
+	robin_hood::detail::Table<1, 80, unsigned __int64, std::vector<unsigned short, TkSTLAllocatorShim<unsigned short> >, robin_hood::hash<unsigned __int64, void>, std::equal_to<unsigned __int64>> maCurrentPlanetObjects;
+	unsigned __int64 muCurrentAddress;
+	bool mbDebugPositions;
+	cTkUserIdBase<cTkFixedString<64, char> > mNetworkOwnerId;
+	unsigned int miBufferIndex;
+};
+
+struct cGcBaseBuildingGlobalBuffer
+{
+	cGcBaseBuildingPersistentBuffer mPersistentBuffers[32];
 };

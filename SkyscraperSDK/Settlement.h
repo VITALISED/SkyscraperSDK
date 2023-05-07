@@ -53,3 +53,24 @@ struct __declspec(align(16)) cGcSettlementState
 	cGcBuildingClassification mNextBuildingUpgradeClass;
 	unsigned __int64 mu64NextBuildingUpgradeSeedValue;
 };
+
+struct __declspec(align(16)) cGcSettlementStateManager
+{
+	std::array<enum eBuildingClass, 48> maeOwnedSettlementBuildingClasses;
+	std::array<cTkSeed, 48> maOwnedSettlementBuildingSeeds;
+	cGcSettlementState* mpOwnedSettlementState;
+	cGcSettlementState* mpSettlementToReport;
+	cGcSettlementState mSettlementToAbandon;
+	TkID<128> mCachedPendingCustomJudgementID;
+	unsigned __int64 mu64NextBuildingUpgradeTimestamp;
+	bool mbHasBuildingClassesAndSeeds;
+	bool mbOwnedSettlementPendingUpload;
+	bool mbOwnedSettlementUploadFailed;
+	bool mbAbandonSettlementUploadFailed;
+	bool mbReportSettlementFailed;
+	bool mbStoreSettlementTeleportEndpointFailed;
+	bool mbOnBuildingStateChangedPending;
+	bool mbClaimingFirstSettlement;
+	bool mbCompletAllClumpsChecked;
+};
+

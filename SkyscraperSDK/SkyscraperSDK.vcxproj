@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -143,19 +143,85 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Alien.h" />
+    <ClInclude Include="Base.h" />
+    <ClInclude Include="cGcAtlastBrokerAuth.h" />
+    <ClInclude Include="cGcBinoculars.h" />
+    <ClInclude Include="cGcCloudSaveManager.h" />
+    <ClInclude Include="cGcEffectList.h" />
+    <ClInclude Include="cGcEntitlementManager.h" />
+    <ClInclude Include="cGcFrontendPage.h" />
+    <ClInclude Include="cGcGameKnowledge.h" />
+    <ClInclude Include="cGcGameState.h" />
+    <ClInclude Include="cGcNetwork.h" />
+    <ClInclude Include="cGcParticleManager.h" />
+    <ClInclude Include="cGcPlayerShip.h" />
+    <ClInclude Include="cGcRegionHotspots.h" />
+    <ClInclude Include="cGcRichPresence.h" />
+    <ClInclude Include="cGcScanner.h" />
+    <ClInclude Include="cGcSceneManager.h" />
+    <ClInclude Include="cGcSeason.h" />
+    <ClInclude Include="cGcSimulation.h" />
+    <ClInclude Include="cGcSky.h" />
+    <ClInclude Include="cGcStatsManager.h" />
+    <ClInclude Include="cGcTelemetryManager.h" />
+    <ClInclude Include="cGcTerrainEditBlockBuffer.h" />
+    <ClInclude Include="cGcUserSeenItemsState.h" />
+    <ClInclude Include="cTkModelResourceRenderer.h" />
+    <ClInclude Include="cTkTextureBase.h" />
+    <ClInclude Include="cTkTimeManager.h" />
+    <ClInclude Include="Customisation.h" />
+    <ClInclude Include="Discovery.h" />
+    <ClInclude Include="Explosion.h" />
+    <ClInclude Include="Fade.h" />
+    <ClInclude Include="Fog.h" />
+    <ClInclude Include="Freighter.h" />
+    <ClInclude Include="Frigate.h" />
+    <ClInclude Include="IDiscoveryManagerEventHandler.h" />
+    <ClInclude Include="INetworkPlayerEventsHandler.h" />
+    <ClInclude Include="Inventory.h" />
+    <ClInclude Include="IStatVariantWatcher.h" />
+    <ClInclude Include="LightShaft.h" />
+    <ClInclude Include="Marker.h" />
+    <ClInclude Include="Mission.h" />
+    <ClInclude Include="PhotoMode.h" />
+    <ClInclude Include="Planet.h" />
+    <ClInclude Include="Raycast.h" />
+    <ClInclude Include="cGcUserSettings.h" />
+    <ClInclude Include="Settlement.h" />
+    <ClInclude Include="Squadron.h" />
+    <ClInclude Include="Story.h" />
+    <ClInclude Include="Trade.h" />
+    <ClInclude Include="UniverseAddressData.h" />
+    <ClInclude Include="Audio.h" />
+    <ClInclude Include="cGcApplication.h" />
+    <ClInclude Include="cGcApplicationGameModeSelector.h" />
+    <ClInclude Include="cGcApplicationTitleScreen.h" />
+    <ClInclude Include="cGcApplicationUGCBaseViewer.h" />
+    <ClInclude Include="cGcAsyncLoadOps.h" />
     <ClInclude Include="cGcCreature.h" />
+    <ClInclude Include="cGcFirstBootContext.h" />
+    <ClInclude Include="cGcPlayer.h" />
+    <ClInclude Include="cGcRealityManager.h" />
     <ClInclude Include="cGcTextChatInput.h" />
     <ClInclude Include="cGcTextChatManager.h" />
+    <ClInclude Include="cTkStoragePersistent.h" />
+    <ClInclude Include="Difficulty.h" />
+    <ClInclude Include="IStatWatcher.h" />
+    <ClInclude Include="Procedural.h" />
     <ClInclude Include="TextChatHandler.h" />
-    <ClInclude Include="cTkNGui.h" />
+    <ClInclude Include="cGcNGui.h" />
     <ClInclude Include="cTkTypes.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="hooks.h" />
     <ClInclude Include="patterns.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="UnorderedMapHashes.h" />
+    <ClInclude Include="Vehicle.h" />
+    <ClInclude Include="Multitool.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cGcBlockedUser.h" />
     <ClCompile Include="TextChatHandler.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="hooks.cpp" />

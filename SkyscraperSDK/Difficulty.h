@@ -256,6 +256,19 @@ struct cGcBreakTechOnDamageDifficultyOption
 	eBreakTechOnDamageProbability meBreakTechOnDamageProbability;
 };
 
+struct cGcDifficultyPresetType
+{
+	eDifficultyPresetType meDifficultyPresetType;
+};
+
+struct cGcDifficultyStateData
+{
+	cGcDifficultyPresetType mPreset;
+	cGcDifficultyPresetType mEasiestUsedPreset;
+	cGcDifficultyPresetType mHardestUsedPreset;
+	cGcDifficultySettingsData mSettings;
+};
+
 struct cGcDifficultySettingsData
 {
 	bool mbSettingsLocked;
@@ -286,4 +299,11 @@ struct cGcDifficultySettingsData
 	cGcCombatTimerDifficultyOption mGroundCombatTimers;
 	cGcSprintingCostDifficultyOption mSprintingCost;
 	cGcBreakTechOnDamageDifficultyOption mBreakTechOnDamage;
+};
+
+struct __declspec(align(4)) cGcDifficultySettings
+{
+	cGcDifficultyStateData mDifficultyStateData;
+	bool mbDifficultySettingsDirty;
+	bool mbDebugRequestOpenFrontEndMenu;
 };

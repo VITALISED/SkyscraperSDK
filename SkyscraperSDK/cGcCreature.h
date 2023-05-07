@@ -2,6 +2,7 @@
 #include "Planet.h"
 #include "Discovery.h"
 #include "cTkModelResourceRenderer.h"
+#include "Raycast.h"
 
 enum eCreatureType : __int32
 {
@@ -78,6 +79,55 @@ enum ePetAction : __int32
 	EPetAction_NumTypes = 0x9,
 };
 
+enum eAge : __int32
+{
+	EAge_Regular = 0x0,
+	EAge_Weird = 0x1,
+	EAge_NumTypes = 0x2,
+};
+
+enum eRarity
+{
+	ERarity_Common = 0x0,
+	ERarity_Uncommon = 0x1,
+	ERarity_Rare = 0x2,
+	ERarity_NumTypes = 0x3,
+	ERarity_Unspecified = 0xFFFFFFFF,
+};
+
+struct cGcRarity
+{
+	eRarity meRarity;
+};
+
+struct cGcCreatureInfo
+{
+	eAge meAge;
+	cTkFixedString<128, char> macGender1;
+	cTkFixedString<128, char> macGender2;
+	cTkFixedString<128, char> macTemperament;
+	cTkFixedString<128, char> macDiet;
+	cTkFixedString<128, char> macWeight1;
+	cTkFixedString<128, char> macHeight1;
+	cTkFixedString<128, char> macWeight2;
+	cTkFixedString<128, char> macHeight2;
+	float mfWeight1;
+	float mfHeight1;
+	float mfWeight2;
+	float mfHeight2;
+	cTkFixedString<128, char> macNotes;
+	cGcRarity mRarity;
+	TkID<256> mBiomeDesc;
+	TkID<256> mTempermentDesc;
+	TkID<256> mDietDesc;
+	TkID<256> mNotesDesc;
+};
+
+struct cGcCreatureTypes
+{
+	eCreatureType meCreatureType;
+};
+
 struct __declspec(align(16)) sOwnedCreatureInfo
 {
 	enum eLoadState : __int32
@@ -134,6 +184,37 @@ struct __declspec(align(16)) sOwnedCreatureInfo
 	bool mbEggModified;
 	bool mbAllowUnmodifiedReroll;
 	bool mbHasBeenSummoned;
+};
+
+struct cGcPetData
+{
+	float mfScale;
+	TkID<128> mCreatureID;
+	cTkDynamicArray<TkID<256> > maDescriptors;
+	cTkSeed mCreatureSeed;
+	cTkSeed mCreatureSecondarySeed;
+	unsigned __int64 mu64SpeciesSeed;
+	unsigned __int64 mu64GenusSeed;
+	TkID<256> mCustomSpeciesName;
+	bool mbPredator;
+	unsigned __int64 mu64UA;
+	bool mbAllowUnmodifiedReroll;
+	cTkSeed mColourBaseSeed;
+	cTkSeed mBoneScaleSeed;
+	bool mbHasFur;
+	cGcBiomeType mBiome;
+	cGcCreatureTypes mCreatureType;
+	unsigned __int64 mu64BirthTime;
+	unsigned __int64 mu64LastEggTime;
+	unsigned __int64 mu64LastTrustIncreaseTime;
+	unsigned __int64 mu64LastTrustDecreaseTime;
+	bool mbEggModified;
+	bool mbHasBeenSummoned;
+	cTkFixedString<32, char> macCustomName;
+	float mfTrust;
+	cGcDiscoveryOwner mSenderData;
+	cTkFixedArray<float, 3> mafTraits;
+	cTkFixedArray<float, 2> mafMoods;
 };
 
 struct cGcPlayerCreatureOwnership

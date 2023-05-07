@@ -1,6 +1,8 @@
 #pragma once
 #include "pch.h"
 #include "cTkTypes.h"
+#include "cGcApplication.h"
+#include "Alien.h"
 
 enum eSeasonSaveStateOnDeath
 {
@@ -15,6 +17,116 @@ enum eSeasonSaveStateOnDeath
 struct cGcSeasonSaveStateOnDeath
 {
 	eSeasonSaveStateOnDeath meSeasonSaveStateOnDeath;
+};
+
+struct __declspec(align(4)) cGcSeasonalData
+{
+	cGcSeasonalGameModeData mData;
+	cGcSeasonalGameModeData mLatestSeasonServerData;
+	int miCachedServerSeasonId;
+	unsigned __int64 mu64CachedServerSeasonStartTime;
+	unsigned __int64 mu64CachedServerSeasonEndTime;
+	unsigned __int64 mu64CachedServerSeasonDataHash;
+	int miCachedServerNextSeasonId;
+	unsigned __int64 mu64CachedServerNextSeasonStartTime;
+	std::vector<std::pair<void(__cdecl*)(void*), void*>, TkSTLAllocatorShim<std::pair<void(__cdecl*)(void*), void*> > > mDataDownloadedCallbacks;
+	bool mbWaitingForDataToDownload;
+	bool mbDataDownloadFailed;
+	bool mbDataAvailable;
+	bool mbDataLocked;
+	bool mbServerDataAvailable;
+};
+
+struct __declspec(align(8)) cGcSeasonalGameModeData
+{
+	int miSeasonId;
+	unsigned __int64 mu64StartTimeUTC;
+	unsigned __int64 mu64EndTimeUTC;
+	unsigned __int64 mu64Hash;
+	cTkFixedString<32, char> macTitle;
+	cTkFixedString<32, char> macSubtitle;
+	cTkFixedString<32, char> macDescription;
+	TkID<256> mFinalStageTitle;
+	TkID<256> mMilestoneWithStageLocId;
+	cGcGameMode mGameMode;
+	cGcDifficultyPresetType mDifficultySettingPreset;
+	cGcDifficultySettingsData mDifficultyMinimums;
+	cTkFixedString<32, char> macSeasonalUAOverride;
+	unsigned __int64 mu64UAOverrideValue;
+	TkID<128> mFinalReward;
+	TkID<128> mFinalRewardSwitchAlt;
+	TkID<256> mFinalCantRewardMessage;
+	cTkFixedString<512, char> macFinalRewardDescription;
+	cTkTextureResource mMainIcon;
+	int miSeasonNumber;
+	int miRemixNumber;
+	int miDisplayNumber;
+	TkID<256> mSeasonName;
+	TkID<256> mSeasonNameUpper;
+	TkID<256> mMainMissionTitle;
+	TkID<256> mMainMissionMessage;
+	bool mbDoCommunityMissionTextSubstitutions;
+	bool mbDefaultToPvPOff;
+	bool mbMustCraftInBases;
+	cTkDynamicArray<TkID<128> > maAdditionalTradeProducts;
+	cTkDynamicArray<TkID<128> > maNeverTradeProducts;
+	int miStartingSuitSlots;
+	int miStartingSuitTechSlots;
+	int miStartingSuitCargoSlots;
+	cTkSeed mWeaponSeed;
+	cTkSeed mShipSeed;
+	cGcSpaceshipClasses mShipType;
+	bool mbStartWithFreighter;
+	cTkFixedString<128, char> macFreighterBaseOverrideFilename;
+	cGcAlienRace mFreighterRace;
+	bool mbStartAboardFreighter;
+	bool mbForceStartSystemTernary;
+	bool mbForceStartSystemAbandoned;
+	cTkDynamicArray<cGcBuildingClassification> maValidSpawnBuildings;
+	cGcInventoryLayout mWeaponInventoryLayout;
+	cGcInventoryLayout mShipInventoryLayout;
+	cGcInventoryLayout mShipTechInventoryLayout;
+	bool mbUseDefaultAppearance;
+	cGcInventoryContainer mInventory;
+	cGcInventoryContainer mInventory_TechOnly;
+	cGcInventoryContainer mInventory_Cargo;
+	cGcInventoryContainer mShipInventory;
+	cGcInventoryContainer mWeaponInventory;
+	bool mbUseRandomPet;
+	cTkDynamicArray<cGcSeasonPetConstraints> maRandomPetConstraints;
+	cTkFixedArray<cGcPetData, 18> maSpecificPets;
+	cTkDynamicArray<cGcSandwormTimerAndFrequencyOverride> maSandwormOverrides;
+	bool mbSandwormGlobalOverride;
+	float mfSandwormGlobalOverrideTimer;
+	float mfSandwormGlobalOverrideSpawnChance;
+	bool mbStartNextToShip;
+	float mfDistanceFromShipAtStartOfGame;
+	bool mbShipStartsDamaged;
+	bool mbAllowMissionDetailMessages;
+	bool mbUseStartPlanetObjectListOverrides;
+	TkID<128> mStartPlanetRareSubstanceOverride;
+	bool mbTrashInventoryOnGalaxyTravel;
+	int miFreighterBattleEarlyWarpsOverride;
+	bool mbForceDeepSpaceAmbientFrigatesOnInfested;
+	int miTechCostMultiplier;
+	cTkDynamicArray<TkID<128> > maNeverLearnableTech;
+	cTkDynamicArray<TkID<128> > maForgottenProducts;
+	bool mbIncreaseXClassTechOddsWithCommTier;
+	float mfAbandonedFreighterHazardProtectionMul;
+	float mfHazardProtectionDrainMultiplier;
+	float mfEnergyDrainMultiplier;
+	int miQuestSubstanceReducer;
+	cTkDynamicArray<cGcSeasonalStage> maStages;
+	cGcScanEventTable mScanEventTable;
+	bool mbResetSaveOnDeath;
+	cTkDynamicArray<cGcPersistedStatData> maStatsToPersistOnReset;
+	bool mbCompatibleWithState;
+	bool mbHasBeenConverted;
+	cTkDynamicArray<cGcTechnology> maTechnologyTable;
+	cTkDynamicArray<cGcProductData> maProductTable;
+	cTkDynamicArray<cGcRealitySubstanceData> maSubstanceTable;
+	cGcTradeData mSeasonalUAStationTradeData;
+	bool mbUseSeasonalUAStationTradeData;
 };
 
 struct cGcSeasonState

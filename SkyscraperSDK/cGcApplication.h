@@ -6,6 +6,14 @@
 #include "cGcApplicationTitleScreen.h"
 #include "cGcApplicationUGCBaseViewer.h"
 
+enum ePS4FixedFPS : __int32
+{
+	EPS4FixedFPS_Invalid = 0x0,
+	EPS4FixedFPS_False = 0x1,
+	EPS4FixedFPS_True = 0x2,
+	EPS4FixedFPS_NumTypes = 0x3,
+};
+
 enum ePresetGameMode : __int32
 {
 	EPresetGameMode_Unspecified = 0x0,
@@ -336,4 +344,25 @@ struct cTkTextureResource
 {
 	cTkFixedString<128, char> macFilename;
 	cTkSmartResHandle mResHandle;
+};
+
+enum eInteractionBufferType : __int32
+{
+	EInteractionBufferType_Distress_Signal = 0x0,
+	EInteractionBufferType_Crate = 0x1,
+	EInteractionBufferType_Destructable = 0x2,
+	EInteractionBufferType_Terrain = 0x3,
+	EInteractionBufferType_Cost = 0x4,
+	EInteractionBufferType_Building = 0x5,
+	EInteractionBufferType_Creature = 0x6,
+	EInteractionBufferType_Maintenance = 0x7,
+	EInteractionBufferType_Personal = 0x8,
+	EInteractionBufferType_Personal_Maintenance = 0x9,
+	EInteractionBufferType_FireteamSync = 0xA,
+	EInteractionBufferType_NumTypes = 0xB,
+};
+
+struct cGcGameMode
+{
+	ePresetGameMode mePresetGameMode;
 };
