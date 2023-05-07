@@ -14,6 +14,7 @@
 #include <forward_list>
 #include <nanoflann.h>
 #include <deque>
+#include <functional>
 
 #include <Minhook.h>
 #pragma comment(lib,"libMinHook.x64.lib")

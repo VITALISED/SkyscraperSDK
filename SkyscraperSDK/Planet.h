@@ -351,3 +351,71 @@ struct cGcHeavyAirSetting
 {
 	cTkFixedArray<cGcHeavyAirSettingValues, 5> maSettings;
 };
+
+enum eVoxelType : __int32
+{
+	EVoxel_Air = 0x0,
+	EVoxel_Base = 0x1,
+	EVoxel_Rock = 0x2,
+	EVoxel_Mountain = 0x3,
+	EVoxel_Underwater = 0x4,
+	EVoxel_Cave = 0x5,
+	EVoxel_Dirt = 0x6,
+	EVoxel_Liquid = 0x7,
+	EVoxel_Substance_Res1 = 0x8,
+	EVoxel_Substance_Res2 = 0x9,
+	EVoxel_Substance_Res3 = 0xA,
+	EVoxel_Num = 0xB,
+};
+
+struct cTkRegionHeightResult
+{
+	cTkVector3 mPosition;
+	cTkVector3 mNormal;
+	eVoxelType meMaterial;
+	eVoxelType meSecondaryMaterial;
+	float mfSlopeValue;
+	float mfRatio;
+};
+
+enum eHazardValue : __int32
+{
+	EHazardValue_Ambient = 0x0,
+	EHazardValue_Water = 0x1,
+	EHazardValue_Cave = 0x2,
+	EHazardValue_Storm = 0x3,
+	EHazardValue_Night = 0x4,
+	EHazardValue_NumTypes = 0x5,
+};
+
+enum eCollisionGroup : __int32
+{
+	ECollisionGroup_Normal = 0x1,
+	ECollisionGroup_Water = 0x2,
+	ECollisionGroup_Terrain = 0x4,
+	ECollisionGroup_Substance = 0x8,
+	ECollisionGroup_Asteroid = 0x10,
+	ECollisionGroup_TerrainInstance = 0x20,
+	ECollisionGroup_TerrainActivated = 0x40,
+	ECollisionGroup_Player = 0x80,
+	ECollisionGroup_Creature = 0x100,
+	ECollisionGroup_Spaceship = 0x200,
+	ECollisionGroup_Debris = 0x400,
+	ECollisionGroup_Shield = 0x800,
+	ECollisionGroup_Raycast = 0x1000,
+	ECollisionGroup_NetworkPlayer = 0x2000,
+	ECollisionGroup_NPCs = 0x4000,
+	ECollisionGroup_Trigger = 0x8000,
+	ECollisionGroup_NumTypes = 0x10,
+};
+
+enum eHazard : __int32
+{
+	EHazard_None = 0x0,
+	EHazard_NoOxygen = 0x1,
+	EHazard_ExtremeHeat = 0x2,
+	EHazard_ExtremeCold = 0x3,
+	EHazard_ToxicGas = 0x4,
+	EHazard_Radiation = 0x5,
+	EHazard_NumTypes = 0x6,
+};

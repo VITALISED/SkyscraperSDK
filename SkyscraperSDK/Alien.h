@@ -1,5 +1,6 @@
 #pragma once
 #include "cTkTypes.h"
+#include "cGcPlayer.h"
 
 enum eAlienRace
 {
@@ -36,11 +37,34 @@ struct cGcAlienRace
 	eAlienRace meAlienRace;
 };
 
-struct cGcPlayerCommunicatorMessage
+enum eNPCSeatedPosture : __int32
 {
-	TkID<256> mDialog;
-	bool mbShowHologram;
-	eCommunicatorType meCommunicatorType;
-	cGcAlienRace mRaceOverride;
-	TkID<256> mShipHUDOverride;
+	ENPCSeatedPosture_Sofa = 0x0,
+	ENPCSeatedPosture_Sit = 0x1,
+	ENPCSeatedPosture_NumTypes = 0x2,
+};
+
+struct __declspec(align(8)) cGcCharacterSit
+{
+	enum State : __int32
+	{
+		Standing = 0x0,
+		SittingDown = 0x1,
+		Seated = 0x2,
+		GettingUp = 0x3,
+		NumStates = 0x4,
+	};
+
+	cGcPlayerCharacterComponent* mpCharacter;
+	TkHandle mpChairNode;
+	TkHandle mpSitLocationNode;
+	cTkPhysRelMat34 mStartLocation;
+	cTkPhysRelMat34 mTargetLocation;
+	float mfTimeInState;
+	float mfInterpolationProgress;
+	cGcCharacterSit::State meState;
+	bool mbIsGek;
+	float mfNextPostureChangeTime;
+	eNPCSeatedPosture meCurrentPosture;
+	eNPCSeatedPosture meTargetPosture;
 };

@@ -377,3 +377,108 @@ struct __declspec(align(8)) TkIterationState/*<1>*/
 	std::array<unsigned __int64, wire> muIndices;
 	std::array<bool, wire> mbInnerStates;
 };
+
+enum ePrimaryAxis : __int32
+{
+	EPrimaryAxis_Z = 0x0,
+	EPrimaryAxis_ZNeg = 0x1,
+	EPrimaryAxis_X = 0x2,
+	EPrimaryAxis_XNeg = 0x3,
+	EPrimaryAxis_Y = 0x4,
+	EPrimaryAxis_YNeg = 0x5,
+	EPrimaryAxis_NumTypes = 0x6,
+};
+
+template <class T, int size>
+struct __declspec(align(8)) cTkRosterPool/*<cGcAIShipSpawn, 128>*/
+{
+	T maPool[size];
+	int maiRoster[size];
+	int miRosterPartition;
+};
+
+struct __declspec(align(8)) TkAddNodesHandle
+{
+	enum eAddNodesState : __int32
+	{
+		EAddNodesState_None = 0x0,
+		EAddNodesState_Searching = 0x1,
+		EAddNodesState_Adding = 0x2,
+	};
+
+	/* 852 */
+	enum eState : __int32
+	{
+		EState_Adding = 0x0,
+		EState_Preparing = 0x1,
+		EState_Complete = 0x2,
+	};
+
+	TkStrongType<int, TkStrongTypeIDs::TkResHandleID> mSceneGraphResource;
+	TkHandle mParentNode;
+	TkHandle mNode;
+	TkHandle mLastAddedNode;
+	std::shared_ptr<TkAddNodesHandle> mpAddReferencedResourceHandle;
+	unsigned __int64 mu64Timeout;
+	cEgSceneNodeTemplate* mpLastAddedTemplate;
+	cTkAttachment* mpCurrentAttachment;
+	int miCount;
+	TkAddNodesHandle::eAddNodesState meAddNodesState;
+	TkAddNodesHandle::eState meState;
+};
+
+template <int size>
+struct cTkMetaMessageMap/*<2>*/
+{
+	robin_hood::detail::Table<0, 80, unsigned __int64, cTkStackVector<std::function<void __cdecl(cTkMetaMessageWrapperTemplated<void> const&)>, 2, -1>, robin_hood::hash<unsigned __int64, void>, std::equal_to<unsigned __int64>> mSubscriptionMap;
+};
+
+template <class T>
+struct __declspec(align(8)) cTkMetaMessageSink/*<cTkAttachmentPtr>*/
+{
+	cTkMetaMessageMap<T> mMetaMessageSubscriptions;
+	T mData;
+	bool mbConstructed;
+};
+
+struct cTkDynamicTexture
+{
+	cTkSmartResHandle mRenderTarget;
+	int miWidth;
+	int miHeight;
+};
+
+struct cTkAnimLayerHandle
+{
+	int miChannelIndex;
+	int miAnimIndex;
+	int miUid;
+};
+
+struct __declspec(align(16)) cTkPlane
+{
+	cTkVector3 mNormal;
+	float mfDistance;
+};
+
+template <class T>
+struct cTkSmoothCD
+{
+	T mVelocity;
+	T mValue;
+};
+
+struct __declspec(align(8)) cTkClock
+{
+	unsigned __int64 mu64StartTime;
+	unsigned __int64 mu64CurrentTime;
+	unsigned __int64 muLastWaitTicksFinish;
+	float mfTimeStep;
+	float mfTotalTime;
+	float mfPrevTotalTime;
+	float mfSlowMotionFactor;
+	unsigned __int64 muFrameCount;
+	bool mbMinFrameTimeSynced;
+	bool mbPaused;
+	bool mbRealtime;
+};

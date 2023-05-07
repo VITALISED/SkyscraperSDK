@@ -3,6 +3,36 @@
 #include "cGcAsyncLoadOps.h"
 #include "IDiscoveryManagerEventHandler.h"
 
+enum eGalaxyStarAnomaly : __int32
+{
+	EGalaxyStarAnomaly_None = 0x0,
+	EGalaxyStarAnomaly_AtlasStation = 0x1,
+	EGalaxyStarAnomaly_AtlasStationFinal = 0x2,
+	EGalaxyStarAnomaly_BlackHole = 0x3,
+	EGalaxyStarAnomaly_MiniStation = 0x4,
+	EGalaxyStarAnomaly_NumTypes = 0x5,
+};
+
+enum eRegionKnowledgeInterest : __int32
+{
+	ERegionKnowledgeInterest_NothingInteresting = 0x0,
+	ERegionKnowledgeInterest_DeadEnd = 0x1,
+	ERegionKnowledgeInterest_Shelter = 0x2,
+	ERegionKnowledgeInterest_WaterEdge = 0x3,
+	ERegionKnowledgeInterest_WaterInlet = 0x4,
+	ERegionKnowledgeInterest_WaterShore = 0x5,
+	ERegionKnowledgeInterest_Forest = 0x6,
+	ERegionKnowledgeInterest_Meadow = 0x7,
+	ERegionKnowledgeInterest_MeadowEdge = 0x8,
+	ERegionKnowledgeInterest_Clearing = 0x9,
+	ERegionKnowledgeInterest_Building = 0xA,
+	ERegionKnowledgeInterest_PlayerBase = 0xB,
+	ERegionKnowledgeInterest_Settlement = 0xC,
+	ERegionKnowledgeInterest_Spaceship = 0xD,
+	ERegionKnowledgeInterest_Impassable = 0xE,
+	ERegionKnowledgeInterest_Count = 0xF,
+};
+
 enum eWonderType : __int32
 {
 	EWonderType_Treasure = 0x0,

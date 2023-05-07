@@ -10,6 +10,24 @@
 #include "cGcSeason.h"
 #include "Story.h"
 #include "Settlement.h"
+#include "Sentinel.h"
+#include "cGcPlayerCommunicator.h"
+#include "cGcPersonalTeleporter.h"
+#include "cGcPlayerStick.h"
+#include "cGcGrabbableComponent.h"
+#include "Emote.h"
+
+enum eCharacterPhysicsDisabledReasons : __int32
+{
+	ECharacterPhysicsDisabledReason_None = 0x0,
+	ECharacterPhysicsDisabledReason_MovementDisabled = 0x1,
+	ECharacterPhysicsDisabledReason_Sitting = 0x2,
+	ECharacterPhysicsDisabledReason_Riding = 0x4,
+	ECharacterPhysicsDisabledReason_ClimbingLadder = 0x8,
+	ECharacterPhysicsDisabledReason_NavFallback = 0x10,
+	ECharacterPhysicsDisabledReason_Replicated = 0x20,
+	ECharacterPhysicsDisabledReason_Any = 0x3F,
+};
 
 enum eHand
 {
@@ -106,8 +124,16 @@ struct cGcPlayerSpawnStateData
 	cTkVector4 mAbandonedFreighterTransformUp;
 };
 
-struct cGcPlayer
+struct cGcPlayer : cGcPlayerCommon
 {
+	typedef cGcPlayerEmoteProp::eState eRocketBootsState;
+
+	enum eStaminaState : __int32
+	{
+		EStamina_Available = 0x0,
+		EStamina_Recovering = 0x1,
+	};
+
 	enum eRocketBootsDoubleTapState : __int32
 	{
 		None = 0x0,
@@ -117,13 +143,253 @@ struct cGcPlayer
 		DoubleTap = 0x4,
 	};
 
-	//???
-	//typedef cGcPlayer::eRocketBootsDoubleTapState cGcApplicationLocalLoadState::SaveRestoreMode;
+	struct __declspec(align(8)) FootstepOnDistanceTravel
+	{
+		cTkPhysRelVec3 mLastUsedPosition;
+		float mfTriggerDistance;
+		float mfTriggerDistanceSqr;
+		bool mbValidDistance;
+		bool mbValidPosition;
+	};
 
+	enum eCharacterMode : __int32
+	{
+		ECharacterMode_FirstPerson = 0x0,
+		ECharacterMode_ThirdPerson = 0x1,
+	};
+
+	struct cGcSummonPetData
+	{
+		int miIndex;
+		float mfAdultScale;
+		float mfGrowthProgress;
+		cTkMatrix34 mSpawnMat;
+		eCreatureType meCreatureType;
+		cTkSeed mBoneScaleSeed;
+		bool mbHasFur;
+		cTkSmartResHandle mPetResource;
+	};
+
+	cTkRigidBody* lpGrabbedBody;
+	cGcPlayerThirdPerson* mpThirdPerson;
+	cGcCameraBehaviourFirstPerson* mpCamera;
+	cGcPlayerController* mpController;
+	cTkHavokCharacterController* mpPhysicsController;
+	cTkAttachmentPtr mpExternalControlAttachment;
+	eCharacterPhysicsDisabledReasons muGravityDisabledReasons;
+	eCharacterPhysicsDisabledReasons muCollisionDisabledReasons;
+	cTkAttachmentPtr mpGrabbedBy;
+	float mfLastGrabbedTime;
+	float mfGrabEscapeTimer;
+	cGcPlayerEffectsComponent* mpEffectsComponent;
+	cGcPlayerFullBodyIKComponent* mpIkComponent;
+	cTkPhysRelMat34 mGraphicsMatrix;
+	cTkVector3 mPosition;
+	std::vector<cGcPlayerImpact, TkSTLAllocatorShim<cGcPlayerImpact> > maProjectileImpacts;
+	TkHandle mEquipmentNode;
+	cTkSmartResHandle mPlayerResource;
+	std::unordered_map<TkID<128>, cTkSmartResHandle, TkIDUnorderedMap::Hash128, std::equal_to<TkID<128> >, TkSTLAllocatorShim<std::pair<TkID<128> const, cTkSmartResHandle>, 8, -1> > mCreatureFoodResources;
+	float mfThrowFoodCooldown;
+	TkAudioObject mAudioObject;
+	cGcPlayerWeapon mWeapon;
+	float mfRecoilSpeed;
+	float mfRecoilAmount;
+	float mfDamagePerSecondRate;
+	cGcWarpJumpTarget mPlayerWarpJumpTarget;
+	cGcTeleportEndpoint mPlayerTeleportEndpoint;
+	cGcPlayer::WarpTargetMode meWarpTargetMode;
+	cTkBitArray<unsigned int, 1> mxMapRequests;
+	cTkBitArray<unsigned int, 1> mPostWarpRequests;
+	cTkPhysRelMat34 mHandMatrix[2];
+	cTkPhysRelMat34 mPreviousHandMatrix[2];
+	cTkMatrix34 mLastHandMatrixOffset[2];
+	cTkPhysRelMat34 mSmoothHandMatrix[2];
+	cTkMatrix34 mFingerFromHandOffset[2];
+	bool mbHandMatrixValid[2];
+	bool mbReleaseGrabbable[2];
+	cTkPhysRelVec3 mSwimHandPos[2];
+	cTkVector3 mSwimAccumulator[2];
+	bool mbSwimHandPosActive[2];
+	bool mbHandTrackingMotionEnabled;
+	__declspec(align(16)) cGcPersonalTeleporter mTeleporter;
+	bool mbSpawned;
+	bool mbLanded;
+	bool mbRunning;
+	float mfHardLandTimer;
+	bool mbIsAutoWalking;
+	bool mbWeaponSuppressed;
+	cTkVector3 mCurrentMoveForce;
+	cGcPlayerAim mAiming;
+	cGcPlayerStick mStick;
+	float mfLastHitTime;
+	cTkAttachmentPtr mpLastHitOwner;
+	TkID<128> mLastHitDamageId;
+	float mfLastWoundTime;
+	cTkVector3 mLastHitDir;
+	cTkPhysRelVec3 mLastPosition;
+	float mfLastDamageTime;
+	float mfWoundDamageAccumulator;
+	TkID<128> mLastDamageId;
+	cTkVector3 mfPullCamToward;
+	float mfCamPullStrength;
+	float mfCamPullDecay;
+	bool mbCamHorizontalOnly;
+	float mYawPull;
+	cTkVector3 mFacingDir;
+	float mfLastFacingImpulse;
+	float mfPitch;
+	float mfCreatureRideYaw;
+	bool mbTurning;
+	bool mbMoving;
+	eCreatureRideState meCreatureRideState;
+	cTkPhysRelVec3 mSmoothedPos;
+	std::array<cTkVector3, 4> mLastVelocities;
+	bool mbFoot;
+	float mfBobAmount;
+	int miGroundMat;
+	bool mbJetpackIgnite;
+	bool mbJetpackStart;
+	float mfJetpackTimer;
+	float mfJetpackTank;
+	eFreeJetpackSurface mbFreeJetpack;
+	float mfJetpackUpForce;
+	float mfJetpackForce;
+	float mfJetpackIgnitionForce;
+	float mfJetpackUpBoost;
+	float mfJetpackForwardBoost;
+	float mfJetpackIgnitionBoost;
+	float mfJetpackFreeDuration;
+	float mfJetpackBoostTimer;
+	bool mbJetpackBoostOverride;
+	bool mbJetpackHeld;
+	float mfRequiredJetpackRefillLevel;
+	float mfFreeSprintTimer;
+	float mfFreeSprintDuration;
+	bool mbSprintIsFree;
+	float mfAirTimer;
+	float mfJetpackLandedTime;
+	cTkClassPoolHandle mJetpackShake;
+	cTkClassPoolHandle mRocketBootsShake;
+	cTkClassPoolHandle mRunShake;
+	cTkClassPoolHandle mWarpTransitionShake;
+	float mfActionTimer;
+	bool mbActionRequiresButtonUp;
+	bool mbJumpRequiresButtonUp;
+	bool mbInteractBlockingAction;
+	bool mbPreviouslyCouldNotFire;
+	bool mbAltStarted;
+	cGcPlayerHazard mHazard;
+	cGcPlayerInteract mInteract;
+	cGcPlayerRespawn mRespawn;
+	cGcPlayerLadderClimb mLadderClimb;
+	cGcCharacterSit mCharacterSit;
+	cTkTimerTemplate<0> mUnderwaterTimer;
+	float mfRandomUnderwaterValue;
+	cGcPlayer::eStaminaState meStaminaState;
+	float mfStamina;
+	float mfTurnAccelerator;
+	bool mbIsTransitioning;
+	cTkAttachment* mpAttachment;
+	cTkSmartResHandle mAnimHeadSceneRes;
+	TkHandle mAnimHeadSceneNode;
+	cTkAnimationComponent* mpAnimHeadAnimation;
+	cTkAnimLayerHandle mHeadAnimLayer;
+	cTkMatrix34 mAnimHeadBaseTrans;
+	cTkMatrix34 mHeadMatrixWhenMovementStarted;
+	float mfExertion;
+	float mfExertionRate;
+	float mfDampShoes;
+	float mfHitReactFadeSpeed;
+	cTkVector2 mHitReactDir;
+	byte mePlayerMode[4];
+	bool mbIsDying;
+	bool mbModRandomiseWeapon;
+	cTkFixedString<128, char> mbModResetWithSeed;
+	float mfShieldChargeAccumulator;
+	float mfShipShieldRechargeAccumulator;
+	float mfLaunchThrustersAccumulator;
+	float mfEnergyAccumulator;
+	float mfEnergyPainTime;
+	float mfLastScanTime;
+	float mfLastShipScanTime;
+	bool mbAimToggleActive;
+	bool mbAimHeld;
+	bool mbAimBeingHeld;
+	bool mbHasFired;
+	bool mbTorchActive;
+	bool mbToggleTorch;
+	bool mbTorchLightNeeded;
+	TkHandle mTorchNode;
+	cTkSmoothCD<cTkVector3> mvTorchDir;
+	TkHandle mAmbientLightNode;
+	cTkPhysRelVec3 mLookAtPoint;
+	bool mbForceLookAt;
+	float mfLookAtTimeLeft;
+	float mfLookAtTime;
+	float mTimeLastUsedJetpack;
+	float mfTimeInMeleeBoost;
+	bool mbMeleeBoostActive;
+	float mfTimeOnGround;
+	float mfTimeRocketBootsActive;
+	float mfRocketBootsBoostStrength;
+	float mfRocketBootsHeightAdjust;
+	float mfRocketBootsHeightAdjustVel;
+	cGcPlayer::eRocketBootsState meRocketBootsState;
+	float mfRocketBootsDoubleTapTimer;
+	cGcPlayer::eRocketBootsDoubleTapState meRocketBootsDoubleTapState;
+	TkAudioID mCurrentSwimAudioEvent;
+	TkID<128> mDebugDamageType;
+	TkHandle mDeathDropNode;
+	std::deque<cTkAttachmentPtr, TkSTLAllocatorShim<cTkAttachmentPtr> > maFriendlyCreatures;
+	std::vector<cTkAttachmentPtr, TkSTLAllocatorShim<cTkAttachmentPtr> > maPredatorsAttacking;
+	float mfTimeSicePredatorAttacked;
+	__declspec(align(16)) cGcPlayer::FootstepOnDistanceTravel mLadderFootsteps;
+	float mfDisabledTimer;
+	float mfTimeUntilBodyRealignment;
+	unsigned __int8 muiCheckFallenThroughFloorCounter;
+	cGcPlayerCommunicator mCommunicator;
+	int meSavedFilter;
+	int meRequestedFilter;
+	cGcPlayer::eCharacterMode meCharacterMode;
+	cGcPlayer::eCharacterMode meRequestedCharacterMode;
+	std::vector<std::pair<TkID<128>, enum cGcPlayer::eCharacterMode>, TkSTLAllocatorShim<std::pair<TkID<128>, enum cGcPlayer::eCharacterMode>> > maCharacterModeOverrides;
+	CharacterSlopeState mCurrentSlopeState;
+	float mfTimeInCurrentSlopeState;
+	cTkMatrix34 maRealignmentTransform[2];
+	cTkMatrix34 maLastControllerTransform[2];
+	cTkSmoothCD<float> maHandControllersFade[2];
+	TkHandle maHandControllers[2];
+	TkHandle maHandCollisionNodes[2];
+	cTkMatrix34 maGrabChangedMatrix[2];
+	cTkMatrix34 maLastGoodGrabTransform[2];
+	sGrabbedObjectInfo maPreviousGrabbable[2];
+	float mafGrabTimer[2];
+	bool mabClenchingFist[2];
+	sGrabbedObjectInfo maCurrentGrabbable[2];
+	unsigned __int64 mauPointingStartTime[2];
+	unsigned __int64 mauPointingEndTime[2];
+	cTkVector3 mPlayerShift;
+	cTkVector3 mFrameShift;
+	bool mbPendingFrameShift;
+	eAlienRace meRace;
+	bool mbHeadAnimationInProgress;
+	eEmoteState meEmoteState;
+	cGcPlayerEmoteProp mEmoteProp;
+	bool mbIsTargetingUnscannedPlanet;
+	cTkPhysRelMat34 mmCurrentTargetPlacement;
+	float mfShipRadiusCached;
+	float mfFreighterMegaWarpTimer;
+	unsigned __int64 mu64LastAutoSaveTimeStamp;
+	cGcPlayer::cGcSummonPetData mSummonPetData;
+	bool mbShowOneContact;
+	int miContactToShow;
+	int miNumContactsToShow;
 };
 
 struct cGcPlayerState
 {
+	typedef cGcPlayer::eRocketBootsDoubleTapState WarpTargetMode;
+
 	struct __declspec(align(8)) ItemEvent
 	{
 		TkID<128> mId;
@@ -336,4 +602,84 @@ struct cGcMsgBeaconManager
 struct cGcHand
 {
 	eHand meHand;
+};
+
+enum ePlayerBoostCheck : __int32
+{
+	EPlayerBoostCheck_Allowed = 0x0,
+	EPlayerBoostCheck_TooCloseToStation = 0x1,
+	EPlayerBoostCheck_TooCloseToFreighters = 0x2,
+	EPlayerBoostCheck_EnemiesNearby = 0x3,
+	EPlayerBoostCheck_InAtmosphere = 0x4,
+	EPlayerBoostCheck_TooCloseToAnomaly = 0x5,
+	EPlayerBoostCheck_UsingComms = 0x6,
+	EPlayerBoostCheck_NumTypes = 0x7,
+};
+
+struct cGcPlayerCommon
+{
+	cGcPlayerCommon_vtbl* __vftable /*VFT*/;
+	__declspec(align(16)) cGcOwnerConcept mOwnerConcept;
+	cGcPlayerWanted mWanted;
+	TkHandle mRootNode;
+	std::vector<cTkAttachmentPtr, TkSTLAllocatorShim<cTkAttachmentPtr> > maBeingScannedBy;
+	float mfLastBeingScannedTime;
+	std::vector<cTkAttachmentPtr, TkSTLAllocatorShim<cTkAttachmentPtr> > maAttackingPredators;
+	std::vector<cTkAttachmentPtr, TkSTLAllocatorShim<cTkAttachmentPtr> > maEngagedPredators;
+	float mfLastAttackTime;
+	float mfLastRespawnTime;
+	cTkAttachmentPtr mpRidingCreature;
+	cTkAttachmentPtr mpPetCreature;
+	cTkAttachmentPtr mpFriendlyDrone;
+};
+
+struct __declspec(align(16)) cGcPlayerHazard
+{
+	cGcPlayerHazardTable* mpHazardTable;
+	cTkBitArray<unsigned int, 1> mxHazardsActive;
+	eHazard meHazardOverride;
+	float mfHazardOverrideTarget;
+	float mfHazardOverrideStrength;
+	float mfLastHazardOverrideTime;
+	cTkPhysRelVec3 mHazardOverridePosition;
+	std::array<float, 6> mafHazardTimers;
+	std::array<float, 6> mafHazardStateChangeTimes;
+	std::array<int, 6> maiHazardChargeLastValues;
+	std::array<float, 6> mafHazardLastPainTime;
+	float mfLastWarningTime;
+	float mfLastRestoreTime;
+	std::array<cGcInventoryElement const*, 6> mapActiveShieldingItems;
+	std::array<float, 6> mafLastEnergyDrainTime;
+	std::array<bool, 6> mabTakenInitialHazardDamage;
+	TkAudioObject mHazardAudioObject;
+	TkAudioID mCurrentHazardAudioSwitch;
+	bool mbHazardProtectionAudioLoopPlaying;
+	std::vector<std::pair<cGcInventoryElement const*, float>, TkSTLAllocatorShim<std::pair<cGcInventoryElement const*, float>> > mapActiveShieldingItemQueues[6];
+};
+
+struct __declspec(align(16)) cGcPlayerRespawn
+{
+	cGcPlayerSpawnStateData mGeneratedPlayerSpawn;
+	bool mbWasPlayerInShipWhenKilled;
+	bool mbOverrideSpawnPlayerOnPlanet;
+};
+
+struct __declspec(align(16)) cGcPlayerLadderClimb
+{
+
+	enum State : __int32
+	{
+		OffLadder = 0x0,
+		OnLadder = 0x1,
+		Exiting = 0x2,
+	};
+
+	cGcPlayer* mpPlayer;
+	bool mIsOnLadder;
+	cTkMatrix34 mStartLocation;
+	cTkMatrix34 mTargetLocation;
+	cTkMatrix34 mTopEndPoint;
+	cTkMatrix34 mBottomEndPoint;
+	float mTimeInTransition;
+	cGcPlayerLadderClimb::State meState;
 };

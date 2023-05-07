@@ -3,6 +3,20 @@
 #include "pch.h"
 #include "Inventory.h"
 #include "cTkModelResourceRenderer.h"
+#include "Weapon.h"
+#include "cGcScanner.h"
+#include "cGcLaserBeam.h"
+#include "TerrainEdit.h"
+
+enum eWeaponStatClass : __int32
+{
+	EWeaponStatClass_Pistol = 0x0,
+	EWeaponStatClass_Rifle = 0x1,
+	EWeaponStatClass_Pristine = 0x2,
+	EWeaponStatClass_Alien = 0x3,
+	EWeaponStatClass_Royal = 0x4,
+	EWeaponStatClass_NumTypes = 0x5,
+};
 
 enum eWeaponMode : __int32
 {
@@ -124,4 +138,118 @@ struct __declspec(align(4)) cGcPlayerMultitoolOwnership
 	int miPrimaryToolIndex;
 	int miRequestedMultitoolIndex;
 	bool mbReadyWeapon;
+};
+
+struct cGcPlayerWeapon : cGcWeapon
+{
+	typedef cGcInWorldUIManager::cGcScreenProjector::RepositioningState eReloadHolsterState;
+	typedef cGcPlayerShipOwnership::eMeshRefreshState eMeshRefreshState;
+
+	enum eWeaponState
+	{
+		EWeapon_Holstered = 0x0,
+		EWeapon_Holstering = 0x1,
+		EWeapon_Idle = 0x2,
+		EWeapon_Drawing = 0x3,
+		EWeapon_Cocking = 0x4,
+		EWeapon_Cocked = 0x5,
+		EWeapon_Meleeing = 0x6,
+		EWeapon_Reloading = 0x7,
+		EWeapon_ReloadHolstered = 0x8,
+		EWeapon_Examining = 0x9,
+		EWeapon_NumStates = 0xA,
+	};
+
+	cTkDynamicTexture mScreenTexture;
+	cGcNGui mScreenGui;
+	cTkSmartResHandle mWeaponResource;
+	cTkFixedArray<cGcMuzzleFlash, 19> maMuzzleFlashGun;
+	cTkFixedArray<cGcMuzzleFlash, 19> maMuzzleFlashLaser;
+	eWeaponMode meReloadRequest;
+	TkHandle mEquipmentNode;
+	TkHandle mWeaponNode;
+	TkHandle mWeaponRootJointNode;
+	TkHandle mWeaponGunJointNode;
+	TkHandle mWeaponBarrelNode;
+	cTkSeed mWeaponSeed;
+	TkHandle mNonDominantLeftHandIkLocator;
+	TkHandle mDominantRightHandIkLocator;
+	bool mbHandInHolsterPosition;
+	bool mbHolsterGestureAvailable;
+	cTkAnimLayerHandle mpAnimationLayer;
+	eWeaponMode meRequestedWeaponMode;
+	bool mbWasControlTracking;
+	eWeaponMode meWeaponMode;
+	eWeaponMode meAltWeaponMode;
+	bool mbHasValidAltWeapon;
+	float mfAnimModeTimer;
+	float mfWeaponModeChangeTime;
+	TkAudioObject mAudioObject;
+	cTkVector3 mBarrelVelocity;
+	cTkVector3 mBarrelPrevPos;
+	cTkSmoothCD<float> mWeaponFader;
+	cTkMatrix34 mOffset;
+	cTkPhysRelMat34 mWeaponMatrix;
+	cTkSmoothCD<float> mfAimAdjustStrength;
+	cTkMatrix34 mThirdPersonRHDominantHandOffset;
+	cTkMatrix34 mThirdPersonLHNonDominantHandOffset;
+	cGcLaserBeam mLaserBeam;
+	cGcLaserBeam mRailBeam;
+	cGcLaserBeam mBoltBeam;
+	cGcTerrainEditorBeam mTerrainEditorBeam;
+	float mfMeleeTimer;
+	bool mbMeleeHit;
+	bool mbMeleeBoosted;
+	cTkClassPoolHandle mLaserShake;
+	float mfHeatTime;
+	float mfLaserAmmoTime;
+	float mfCoolSpeed;
+	bool mbOverheat;
+	float mfCooldownTime;
+	bool mbOnCooldown;
+	int miProjectileSeed;
+	bool mbFireOnCocked;
+	eWeaponMode meCockFireMode;
+	eWeaponStatClass meWeaponStatClass;
+	cTkAnimationComponent* mpAnim;
+	cTkSmartResHandle mShieldRes;
+	TkHandle mShieldNode;
+	cTkPhysicsComponent* mpShieldPhysics;
+	cTkSmoothCD<float> mShieldActiveFactor;
+	bool mbShieldActivate;
+	cTkSmoothCD<float> mStealthActiveFactor;
+	bool mbStealthActivate;
+	float mfStealthChargeAccumulator;
+	TkHandle mMuzzleLightNode;
+	float mfScopeFOVMultiplier;
+	cGcPlayerWeapon::eWeaponState meState;
+	bool mbHolsterWeaponAfterMelee;
+	cTkTimerTemplate<0> mWeaponTimer;
+	float mfLastFireTime;
+	float mfLastHolsterTime;
+	bool mbFiredLastFrame;
+	bool mbFiredThisFrame;
+	bool mbHolsterChangeActive;
+	float mfDispersionTimer;
+	TkID<128> mActiveOneShot;
+	TkID<128> mMeleeAnim;
+	cGcOwnerConcept* mpOwnerConcept;
+	int maiAmmo[19];
+	TkID<128> maKnockbackAnims[10];
+	int miNumKnockbackAnims;
+	float mfReloadButtonHeldTime;
+	cGcPlayerWeapon::eReloadHolsterState mReloadHolsterState;
+	bool mbIsLargeWeapon;
+	bool mbReloadTapDown;
+	bool mbCharging;
+	float mfChargeTime;
+	eWeaponMode meNeedsRecoilAfterFired;
+	cGcSimpleScanEffect mScanEffect;
+	bool mbShouldRefreshMesh;
+	cGcPlayerWeapon::eMeshRefreshState mMeshRefreshState;
+	cTkSmartResHandle mWeaponModelSwapRes;
+	cTkTimerTemplate<0> mVrMeleeTimer;
+	TkHandle mSpawnedNode;
+	TkHandle mSpawnedAltNode;
+	int miShotsInBurst;
 };

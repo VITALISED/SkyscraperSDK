@@ -143,19 +143,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AI.h" />
+    <ClInclude Include="AKEvent.h" />
     <ClInclude Include="Alien.h" />
     <ClInclude Include="Base.h" />
     <ClInclude Include="cGcAtlastBrokerAuth.h" />
+    <ClInclude Include="cGcBeamEffect.h" />
     <ClInclude Include="cGcBinoculars.h" />
     <ClInclude Include="cGcCloudSaveManager.h" />
+    <ClInclude Include="cGcEcosystem.h" />
     <ClInclude Include="cGcEffectList.h" />
     <ClInclude Include="cGcEntitlementManager.h" />
+    <ClInclude Include="cGcEnvironment.h" />
+    <ClInclude Include="cGcFrontendManager.h" />
     <ClInclude Include="cGcFrontendPage.h" />
+    <ClInclude Include="cGcFullscreenEffectManager.h" />
     <ClInclude Include="cGcGameKnowledge.h" />
     <ClInclude Include="cGcGameState.h" />
+    <ClInclude Include="cGcInWorldUIManager.h" />
+    <ClInclude Include="cGcLaserBeam.h" />
     <ClInclude Include="cGcNetwork.h" />
     <ClInclude Include="cGcParticleManager.h" />
+    <ClInclude Include="cGcPersonalTeleporter.h" />
+    <ClInclude Include="cGcPlayerCommunicator.h" />
+    <ClInclude Include="cGcPlayerExperienceDirector.h" />
+    <ClInclude Include="cGcPlayerInteract.h" />
     <ClInclude Include="cGcPlayerShip.h" />
+    <ClInclude Include="cGcPlayerStick.h" />
+    <ClInclude Include="cGcReflectionProbesManager.h" />
     <ClInclude Include="cGcRegionHotspots.h" />
     <ClInclude Include="cGcRichPresence.h" />
     <ClInclude Include="cGcScanner.h" />
@@ -170,10 +185,12 @@
     <ClInclude Include="cTkModelResourceRenderer.h" />
     <ClInclude Include="cTkTextureBase.h" />
     <ClInclude Include="cTkTimeManager.h" />
+    <ClInclude Include="Curve.h" />
     <ClInclude Include="Customisation.h" />
     <ClInclude Include="Discovery.h" />
     <ClInclude Include="Explosion.h" />
     <ClInclude Include="Fade.h" />
+    <ClInclude Include="Fiend.h" />
     <ClInclude Include="Fog.h" />
     <ClInclude Include="Freighter.h" />
     <ClInclude Include="Frigate.h" />
@@ -186,11 +203,15 @@
     <ClInclude Include="Mission.h" />
     <ClInclude Include="PhotoMode.h" />
     <ClInclude Include="Planet.h" />
+    <ClInclude Include="Projectle.h" />
     <ClInclude Include="Raycast.h" />
     <ClInclude Include="cGcUserSettings.h" />
+    <ClInclude Include="Sentinel.h" />
     <ClInclude Include="Settlement.h" />
+    <ClInclude Include="cGcGrabbableComponent.h" />
     <ClInclude Include="Squadron.h" />
     <ClInclude Include="Story.h" />
+    <ClInclude Include="TerrainEdit.h" />
     <ClInclude Include="Trade.h" />
     <ClInclude Include="UniverseAddressData.h" />
     <ClInclude Include="Audio.h" />
@@ -219,6 +240,7 @@
     <ClInclude Include="UnorderedMapHashes.h" />
     <ClInclude Include="Vehicle.h" />
     <ClInclude Include="Multitool.h" />
+    <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cGcBlockedUser.h" />

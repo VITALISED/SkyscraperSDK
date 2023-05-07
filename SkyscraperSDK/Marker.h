@@ -147,3 +147,12 @@ struct cGcMarkerList
 {
 	std::vector<cGcMarkerPoint, TkSTLAllocatorShim<cGcMarkerPoint> > maMarkerObjects;
 };
+
+struct __declspec(align(8)) cGcMarkerRenderData
+{
+	cTkColour mFillColour;
+	cTkColour mBackgroundColour;
+	float mfAmount;
+	float mfInnerRadius;
+	float mfOuterRadius;
+};

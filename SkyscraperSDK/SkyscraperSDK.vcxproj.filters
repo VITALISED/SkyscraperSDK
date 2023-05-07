@@ -46,6 +46,9 @@
     <Filter Include="Header Files\SDK\VFX">
       <UniqueIdentifier>{50b3ee44-d65f-411a-8641-ce695e1d7f4f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\SDK\Reality\Base">
+      <UniqueIdentifier>{6c42e979-cf3d-47ed-bf55-cbee99b44141}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -95,9 +98,6 @@
     </ClInclude>
     <ClInclude Include="Audio.h">
       <Filter>Header Files\SDK\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Base.h">
-      <Filter>Header Files\SDK\Reality</Filter>
     </ClInclude>
     <ClInclude Include="cGcFirstBootContext.h">
       <Filter>Header Files\SDK\Engine</Filter>
@@ -275,6 +275,75 @@
     </ClInclude>
     <ClInclude Include="cGcSky.h">
       <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcEnvironment.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcReflectionProbesManager.h">
+      <Filter>Header Files\SDK\VFX</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcEcosystem.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectle.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="AI.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcFullscreenEffectManager.h">
+      <Filter>Header Files\SDK\VFX</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcInWorldUIManager.h">
+      <Filter>Header Files\SDK\NGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Sentinel.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="Fiend.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcPlayerExperienceDirector.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="AKEvent.h">
+      <Filter>Header Files\SDK\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Curve.h">
+      <Filter>Header Files\SDK\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcBeamEffect.h">
+      <Filter>Header Files\SDK\VFX</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcLaserBeam.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainEdit.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="Base.h">
+      <Filter>Header Files\SDK\Reality\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcPersonalTeleporter.h">
+      <Filter>Header Files\SDK\Reality\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcPlayerStick.h">
+      <Filter>Header Files\SDK\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcPlayerInteract.h">
+      <Filter>Header Files\SDK\NGui</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcFrontendManager.h">
+      <Filter>Header Files\SDK\NGui</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcPlayerCommunicator.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcGrabbableComponent.h">
+      <Filter>Header Files\SDK\Reality\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

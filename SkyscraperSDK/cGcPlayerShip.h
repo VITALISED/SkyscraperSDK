@@ -20,6 +20,15 @@ enum eShipClass : __int32
 	EShipClass_NumTypes = 0x9,
 };
 
+enum ePulseDriveState : __int32
+{
+	EPulseDriveState_None = 0x0,
+	EPulseDriveState_Charge = 0x1,
+	EPulseDriveState_Jumping = 0x2,
+	EPulseDriveState_CrashStop = 0x3,
+	EPulseDriveState_Cooldown = 0x4,
+};
+
 struct cGcSpaceshipClasses
 {
 	eShipClass meShipClass;

@@ -345,6 +345,13 @@ struct __declspec(align(16)) cGcUserSettings
 		FullLoadComplete = 0x2,
 	};
 
+	enum Sensitivity : __int32
+	{
+		Flight = 0x0,
+		View = 0x1,
+		Cursor = 0x2,
+	};
+
 	cGcUserSettingsData mSettingsData;
 	cGcGyroSettingsData mGyroSettingsDataHandheldProxy;
 	cGcBlockList mBlockList;

@@ -2,6 +2,17 @@
 #include "Procedural.h"
 #include "UniverseAddressData.h"
 
+enum eBasePartAudioLocation : __int32
+{
+	EBasePartAudioLocation_None = 0x0,
+	EBasePartAudioLocation_Freighter_SpaceWalk = 0x1,
+	EBasePartAudioLocation_Freighter_BioRoom = 0x2,
+	EBasePartAudioLocation_Freighter_TechRoom = 0x3,
+	EBasePartAudioLocation_Freighter_IndustrialRoom = 0x4,
+	EBasePartAudioLocation_NumTypes = 0x5,
+};
+
+
 enum eBaseSharingMode : __int32
 {
 	EBaseSharingMode_Undecided = 0x0,

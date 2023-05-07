@@ -244,3 +244,43 @@ struct cGcPlayerCreatureOwnership
 	cTkSmartResHandle mLightMaterial;
 	cGcPetEggSpeciesOverrideTable* mpPetEggSpeciesOverrideTable;
 };
+
+struct cGcCreatureGUID
+{
+	unsigned __int64 muHigh;
+	unsigned __int64 muLow;
+};
+
+struct __declspec(align(8)) cGcCreatureNode
+{
+	cTkPhysicsComponent* mpPhysics;
+	cGcShootableComponent* mpShootable;
+	cTkAttachmentPtr mpAttachment;
+	TkHandle mNode;
+	ePrimaryAxis meAxis;
+	float mfAvoidRadius;
+};
+
+struct cGcCreatureRoutinePtr
+{
+	__int64 miUniqueId;
+};
+
+enum eMoveArea : __int32
+{
+	EMoveArea_Ground = 0x0,
+	EMoveArea_Water = 0x1,
+	EMoveArea_Air = 0x2,
+	EMoveArea_Space = 0x3,
+	EMoveArea_NumTypes = 0x4,
+};
+
+struct cGcCreatureStats
+{
+	TkStrongType<int, TkStrongTypeIDs::TkResHandleID> mResHandle;
+	TkStrongType<int, TkStrongTypeIDs::TkResHandleID> mFemaleResHandle;
+	float mfNavRadius;
+	float mfHeight;
+	float mfSpeed;
+	float mfScale;
+};
