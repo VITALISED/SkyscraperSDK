@@ -345,6 +345,21 @@
     <ClInclude Include="cGcGrabbableComponent.h">
       <Filter>Header Files\SDK\Reality\Base</Filter>
     </ClInclude>
+    <ClInclude Include="Emote.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcGalaxyMap.h">
+      <Filter>Header Files\SDK\NGui</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcTransition.h">
+      <Filter>Header Files\SDK\NGui</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcHUDManager.h">
+      <Filter>Header Files\SDK\NGui</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcHUDLayer.h">
+      <Filter>Header Files\SDK\NGui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">

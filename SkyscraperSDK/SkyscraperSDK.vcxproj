@@ -158,8 +158,11 @@
     <ClInclude Include="cGcFrontendManager.h" />
     <ClInclude Include="cGcFrontendPage.h" />
     <ClInclude Include="cGcFullscreenEffectManager.h" />
+    <ClInclude Include="cGcGalaxyMap.h" />
     <ClInclude Include="cGcGameKnowledge.h" />
     <ClInclude Include="cGcGameState.h" />
+    <ClInclude Include="cGcHUDLayer.h" />
+    <ClInclude Include="cGcHUDManager.h" />
     <ClInclude Include="cGcInWorldUIManager.h" />
     <ClInclude Include="cGcLaserBeam.h" />
     <ClInclude Include="cGcNetwork.h" />
@@ -181,6 +184,7 @@
     <ClInclude Include="cGcStatsManager.h" />
     <ClInclude Include="cGcTelemetryManager.h" />
     <ClInclude Include="cGcTerrainEditBlockBuffer.h" />
+    <ClInclude Include="cGcTransition.h" />
     <ClInclude Include="cGcUserSeenItemsState.h" />
     <ClInclude Include="cTkModelResourceRenderer.h" />
     <ClInclude Include="cTkTextureBase.h" />
@@ -188,6 +192,7 @@
     <ClInclude Include="Curve.h" />
     <ClInclude Include="Customisation.h" />
     <ClInclude Include="Discovery.h" />
+    <ClInclude Include="Emote.h" />
     <ClInclude Include="Explosion.h" />
     <ClInclude Include="Fade.h" />
     <ClInclude Include="Fiend.h" />
