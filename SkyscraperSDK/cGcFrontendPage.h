@@ -1,4 +1,5 @@
 #pragma once
+#include "cTkTypes.h"
 
 struct cGcFrontendPage
 {
@@ -10,5 +11,9 @@ struct cGcFrontendPage
 			Wide = 0x1,
 			VR = 0x2,
 		};
+
+		TkStrongType<int, TkStrongTypeIDs::cTkNGuiFontHandleID> miPadIcon;
+		cGcFrontendPage::ButtonIcon::Size meSize;
+		eInputAction meBoundAction;
 	};
 };

@@ -138,3 +138,52 @@ struct cGcPurchasableFrigateTracker
 	const cGcPlayerFleetManager* mOwner;
 	std::vector<TkHandle, TkSTLAllocatorShim<TkHandle> > maUnavailableFrigates;
 };
+
+enum eFleetPageMode : __int32
+{
+	EFleetPageMode_Default = 0x0,
+	EFleetPageMode_SelectFrigateForExpedition = 0x1,
+};
+
+enum eDebriefLogEntryStage : __int32
+{
+	EDebriefLogEntryStage_ShowingTitle = 0x0,
+	EDebriefLogEntryStage_ShowingDescription = 0x1,
+	EDebriefLogEntryStage_ShowingReward = 0x2,
+	EDebriefLogEntryStage_Complete = 0x3,
+};
+
+struct __declspec(align(16)) cGcFleetPageData
+{
+	cGcMarkerRenderData mBeginDial;
+	cGcFleetExpedition* mpSelectedExpedition;
+	cGcFleetFrigate* mpSelectedFrigate;
+	int miCurrentFleetPage;
+	int miCurrentExpeditionPage;
+	int miCurrentExpeditionDetailsPage;
+	int miSelectedPowerupIndex;
+	eFleetPageMode mePageMode;
+	float mfLeaveScreenTimer;
+	float mfFeedFrigateStartTime;
+	float mfDebriefLetterTimer;
+	int miDebriefLogEntryLettersAddedLastFrame;
+	int miDebriefLogEntryLettersShown;
+	int miDebriefLogEntriesShown;
+	eDebriefLogEntryStage meDebriefLogEntryStage;
+	bool mbAddedCRDelay;
+	bool mbShownDebrief;
+	bool mbExpeditionHasBeenChosen;
+	cTkVector3 mFocusFrigatePosition;
+	cTkVector3 maFocusFrigateTraitPositions[5];
+	cGcFleetFrigate mFrigateBeingPurchased;
+	const cGcFleetFrigate* mpHighlightedFrigate;
+	const cGcFleetFrigate* mpNewHighlightedFrigate;
+	const cGcFleetExpedition* mpHighlightedExpedition;
+	const cGcFleetExpedition* mpNewHighlightedExpedition;
+	eFrontendPage meReturnPage;
+	TkHandle mFocusNode;
+	TkHandle mNewFocusNode;
+	eExpeditionCategory meFrigateListPrimaryCategory;
+	bool mbSortFrigateListRequested;
+	bool mbPlayingDebriefAudio;
+};

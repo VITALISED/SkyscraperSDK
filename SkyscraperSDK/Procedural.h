@@ -91,3 +91,11 @@ struct cTkPersonalRNG
 	unsigned int mState0;
 	unsigned int mState1;
 };
+
+enum eSpawnMode : __int32
+{
+	ESpawnMode_None = 0x0,
+	ESpawnMode_UseSeed = 0x1,
+	ESpawnMode_UseAltID = 0x2,
+	ESpawnMode_NumTypes = 0x3,
+};

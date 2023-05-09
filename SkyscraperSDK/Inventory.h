@@ -2,6 +2,7 @@
 #include "cTkTypes.h"
 #include "Procedural.h"
 #include "UnorderedMapHashes.h"
+#include "Mission.h"
 
 enum eInventoryStackSizeGroup : __int32
 {
@@ -80,4 +81,110 @@ struct cGcInventoryStoreBalance
 	int miPlayerPersonalInventoryCargoWidth;
 	int miPlayerPersonalInventoryCargoHeight;
 	float mfDeconstructRefundPercentage;
+};
+
+enum eInventoryType
+{
+	EInventoryType_Substance = 0x0,
+	EInventoryType_Technology = 0x1,
+	EInventoryType_Product = 0x2,
+	EInventoryType_NumTypes = 0x3,
+	EInventoryType_Unspecified = 0xFFFFFFFF,
+};
+
+struct cGcInventoryType
+{
+	eInventoryType meInventoryType;
+};
+
+struct cGcInventoryIndex
+{
+	int miX;
+	int miY;
+};
+
+const struct cGcInventoryElement
+{
+	cGcInventoryType mType;
+	TkID<128> mId;
+	int miAmount;
+	int miMaxAmount;
+	float mfDamageFactor;
+	bool mbFullyInstalled;
+	cGcInventoryIndex mIndex;
+};
+
+const struct cGcSlotIcon
+{
+	cTkSmartResHandle mIcon;
+	eIconStyle meIconStyle;
+	cGcInventoryElement mItem;
+};
+
+struct __declspec(align(8)) cGcCraftingTreePageData
+{
+	eFrontendPage meReturnPage;
+	cGcInventoryType mType;
+	TkID<128> mId;
+	InventoryChoice meInventory;
+	cGcInventoryIndex mInventoryIndex;
+	cGcInventoryElement mHighlightElement;
+	bool mbNeedsRefresh;
+};
+
+struct __declspec(align(8)) InventoryTransferData
+{
+	std::vector<InventoryData, TkSTLAllocatorShim<InventoryData> > maLeft;
+	int miCurrentLeft;
+	std::vector<InventoryData, TkSTLAllocatorShim<InventoryData> > maRight;
+	int miCurrentRight;
+};
+
+enum eWikiPageType : __int32
+{
+	EWikiPageType_Wiki = 0x0,
+	EWikiPageType_Catalogue = 0x1,
+	EWikiPageType_MaterialsAndItemsCatalogue = 0x2,
+	EWikiPageType_CraftingAndTechnologyCatalogue = 0x3,
+	EWikiPageType_BuildablesCatalogue = 0x4,
+	EWikiPageType_Stories = 0x5,
+	EWikiPageType_RecipesCatalogue = 0x6,
+	EWikiPageType_Wonders = 0x7,
+	EWikiPageType_NumTypes = 0x8,
+};
+
+enum eInventoryFilter : __int32
+{
+	EInventoryFilter_All = 0x0,
+	EInventoryFilter_Substance = 0x1,
+	EInventoryFilter_HighValue = 0x2,
+	EInventoryFilter_Consumable = 0x3,
+	EInventoryFilter_Deployable = 0x4,
+	EInventoryFilter_NumTypes = 0x5,
+};
+
+struct __declspec(align(16)) cGcInventorySlotAction
+{
+	enum Style
+	{
+		InventoryHint = 0x0,
+		NewSuitPulse = 0x1,
+		NewSuitReveal = 0x2,
+		Repair = 0x3,
+		Charge = 0x4,
+		InstallTech = 0x5,
+		BuildProduct = 0x6,
+		NumStyles = 0x7,
+	};
+
+	InventoryChoice meInventory;
+	cGcInventoryIndex mInventoryIndex;
+	cGcNGuiLayer* mpSlot;
+	bool mbActive;
+	bool mbCanAutoScrollToBottom;
+	bool mbOffScreen;
+	float mfStartTime;
+	cGcInventorySlotAction::Style meStyle;
+	cGcNGuiLayer mActionSlot;
+	cGcInventorySlotActionData* mpActionData;
 };

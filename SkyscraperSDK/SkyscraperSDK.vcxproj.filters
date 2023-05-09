@@ -360,6 +360,18 @@
     <ClInclude Include="cGcHUDLayer.h">
       <Filter>Header Files\SDK\NGui</Filter>
     </ClInclude>
+    <ClInclude Include="cTkISystemEventHandler.h">
+      <Filter>Header Files\SDK\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="SpaceStation.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="SolarSystem.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
+    <ClInclude Include="cGcIdleAnimList.h">
+      <Filter>Header Files\SDK\Reality</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">

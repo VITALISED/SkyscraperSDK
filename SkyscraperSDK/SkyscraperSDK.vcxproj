@@ -163,6 +163,7 @@
     <ClInclude Include="cGcGameState.h" />
     <ClInclude Include="cGcHUDLayer.h" />
     <ClInclude Include="cGcHUDManager.h" />
+    <ClInclude Include="cGcIdleAnimList.h" />
     <ClInclude Include="cGcInWorldUIManager.h" />
     <ClInclude Include="cGcLaserBeam.h" />
     <ClInclude Include="cGcNetwork.h" />
@@ -186,6 +187,7 @@
     <ClInclude Include="cGcTerrainEditBlockBuffer.h" />
     <ClInclude Include="cGcTransition.h" />
     <ClInclude Include="cGcUserSeenItemsState.h" />
+    <ClInclude Include="cTkISystemEventHandler.h" />
     <ClInclude Include="cTkModelResourceRenderer.h" />
     <ClInclude Include="cTkTextureBase.h" />
     <ClInclude Include="cTkTimeManager.h" />
@@ -214,6 +216,8 @@
     <ClInclude Include="Sentinel.h" />
     <ClInclude Include="Settlement.h" />
     <ClInclude Include="cGcGrabbableComponent.h" />
+    <ClInclude Include="SolarSystem.h" />
+    <ClInclude Include="SpaceStation.h" />
     <ClInclude Include="Squadron.h" />
     <ClInclude Include="Story.h" />
     <ClInclude Include="TerrainEdit.h" />

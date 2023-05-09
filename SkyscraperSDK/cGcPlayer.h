@@ -683,3 +683,17 @@ struct __declspec(align(16)) cGcPlayerLadderClimb
 	float mTimeInTransition;
 	cGcPlayerLadderClimb::State meState;
 };
+
+struct __declspec(align(16)) cGcCharacterCustomisationPageData
+{
+	int miSelectedGroup;
+	cTkVector2 mvCameraVelocity;
+	cGcResourceCustomisation mResourceCustomisation;
+	cGcPlayerBanner mBannerToEdit;
+	TkID<128> mJetpackEffect;
+	TkID<128> mFreighterEngineEffect;
+	int miTitlePageIndex;
+	int miFirstTitleIndex;
+	bool mbMultipleUnlockedTitles;
+	bool mbSelectingTitle;
+};

@@ -40,10 +40,8 @@ struct STB_TexteditState
 };
 
 
-class cGcTextChatInput
+struct cGcTextChatInput
 {
-public:
-
 	cTkNGuiTextEditState mEditText;
 	cTkFixedString<1023, char> msText;
 	cTkFixedString<1023, char> msInputTextDisplayString;

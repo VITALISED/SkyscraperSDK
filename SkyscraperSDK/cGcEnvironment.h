@@ -212,3 +212,13 @@ struct cGcTempPortalRenderData
 	cTkSmartResHandle mPipeline;
 	cTkSmartResHandle maRenderTextures[2];
 };
+
+struct cGcEnvironmentSpawnData
+{
+	cTkDynamicArray<cGcCreatureSpawnData> maCreatures;
+	cTkDynamicArray<cGcObjectSpawnData> maDistantObjects;
+	cTkDynamicArray<cGcObjectSpawnData> maLandmarks;
+	cTkDynamicArray<cGcObjectSpawnData> maObjects;
+	cTkDynamicArray<cGcObjectSpawnData> maDetailObjects;
+	cTkDynamicArray<cGcSelectableObjectSpawnList> maSelectableObjects;
+};

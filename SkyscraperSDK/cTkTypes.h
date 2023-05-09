@@ -1,6 +1,7 @@
 #pragma once
 #include "pch.h"
 #include "Procedural.h"
+#include "cGcTextChatInput.h"
 
 template <class Type>
 struct TkSTLAllocatorShim {
@@ -168,7 +169,14 @@ struct cTkPhysRelMat34
 	cTkPhysRelVec3 mPos;
 };
 
-template <typename T, TkStrongTypeIDs>
+struct TkStrongTypeIDs
+{
+	struct cTkNGuiImageHandleID {};
+	struct TkResHandleID {};
+	struct cTkNGuiFontHandleID {};
+};
+
+template <typename T, class U>
 struct TkStrongType/*<int, TkStrongTypeIDs::TkResHandleID>*/
 {
 	T mValue;
@@ -482,3 +490,15 @@ struct __declspec(align(8)) cTkClock
 	bool mbPaused;
 	bool mbRealtime;
 };
+
+struct cTkHitCurve
+{
+	const cTkHitCurveData* mpData;
+	std::vector<std::pair<float, float>, TkSTLAllocatorShim<std::pair<float, float>> > mafHitTimes;
+};
+
+//template <int T, class U>
+//struct TkStrongType/*<int, TkStrongTypeIDs::cTkNGuiFontHandleID>*/
+//{
+//	T mValue;
+//};

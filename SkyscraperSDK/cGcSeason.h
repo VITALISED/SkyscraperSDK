@@ -157,3 +157,23 @@ struct cGcSeasonState
 	bool mbHasCollectedFinalReward;
 	bool mbFinalRewardFitsInInventory;
 };
+
+struct __declspec(align(8)) cGcSeasonPageData
+{
+	int miExpeditionDistance;
+	int miSystemsDiscovered;
+	float mfDistanceWalked;
+	int miNanites;
+	int miMoney;
+	std::vector<float, TkSTLAllocatorShim<float> > mafInitialRingPositions;
+	std::vector<float, TkSTLAllocatorShim<float> > mafInitialStarPositions;
+	std::vector<float, TkSTLAllocatorShim<float> > mafInitialStarSizes;
+	cGcNGuiSpecialTextStyleData* mpProgressStyleData;
+	long double mfStageChangeStartTime;
+	long double mfStageChangeTime;
+	int miPreviousStageIndex;
+	int miStageIndex;
+	int miNextStageIndex;
+	bool mbShowingLatestStage;
+	int mbShowingFinalStage;
+};

@@ -152,6 +152,21 @@ struct __declspec(align(4)) cGcWonderRecord
 	bool mbSeenInFrontend;
 };
 
+struct cGcWonderHandle
+{
+	eWonderType meType;
+	int miCategory;
+};
+
+struct cGcCustomWonderTextEntryHandler
+{
+	typedef cGcPlayerEmoteProp::eState eState;
+
+	cGcCustomWonderTextEntryHandler::eState meState;
+	cGcWonderHandle mWonder;
+};
+
+
 struct cGcWonderData
 {
 	typedef cGcPlayerEmoteProp::eState eLoadState;

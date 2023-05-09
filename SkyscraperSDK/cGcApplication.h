@@ -5,6 +5,7 @@
 #include "cGcNGui.h"
 #include "cGcApplicationTitleScreen.h"
 #include "cGcApplicationUGCBaseViewer.h"
+#include "SolarSystem.h"
 
 enum ePS4FixedFPS : __int32
 {
@@ -365,4 +366,41 @@ enum eInteractionBufferType : __int32
 struct cGcGameMode
 {
 	ePresetGameMode mePresetGameMode;
+};
+
+enum eUnlockableItemTree : __int32
+{
+	EUnlockableItemTree_Test = 0x0,
+	EUnlockableItemTree_BasicBaseParts = 0x1,
+	EUnlockableItemTree_BasicTechParts = 0x2,
+	EUnlockableItemTree_BaseParts = 0x3,
+	EUnlockableItemTree_SpecialBaseParts = 0x4,
+	EUnlockableItemTree_SuitTech = 0x5,
+	EUnlockableItemTree_ShipTech = 0x6,
+	EUnlockableItemTree_WeapTech = 0x7,
+	EUnlockableItemTree_ExocraftTech = 0x8,
+	EUnlockableItemTree_CraftProducts = 0x9,
+	EUnlockableItemTree_FreighterTech = 0xA,
+	EUnlockableItemTree_S9BaseParts = 0xB,
+	EUnlockableItemTree_S9ExoTech = 0xC,
+	EUnlockableItemTree_S9ShipTech = 0xD,
+	EUnlockableItemTree_NumTypes = 0xE,
+};
+
+struct cGcSolarSystemQuery
+{
+	enum Type : __int32
+	{
+		System = 0x0,
+		SystemAndPlanets = 0x1,
+	};
+
+	cGcSolarSystemQuery::Type meType;
+	unsigned __int64 mSystemUA;
+	cTkSeed mSystemSeed;
+	cGcGalaxyAttributesAtAddress mSystemAttributes;
+	PlanetGenerationQuery maPlanetAttributes[6];
+	cGcSolarSystemGenerator::GenerationData mSolarSystemGenerationData;
+	cGcSolarSystemData mSolarSystemData;
+	cGcSolarSystemAsteroidFields mSolarSystemInfoMap;
 };
